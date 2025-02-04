@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ESCP 9710 R Labs - 9&nbsp; Latent Growth Modeling</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./measurementinvariance_ord.html" rel="next">
+<link href="./sam.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ESCP 9710 R Labs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/people.html" rel="" target="">
+ <span class="menu-text">People</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/talks.html" rel="" target="">
+ <span class="menu-text">Talks</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-r-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">R Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-r-labs">    
+        <li>
+    <a class="dropdown-item" href="https://winterstat.github.io/escp8082_rlabs" rel="" target="">
+ <span class="dropdown-text">ESCP 8082 Foundations of Measurement</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.twitter.com/winterstat" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.github.com/winterstat" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./latentgrowthmodel.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Latent Growth Modeling</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gettingstarted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pathanalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Path Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./indirecteffects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Indirect Effects</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelevaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Model Evaluation and Comparison</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confirmatoryfactoranalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Confirmatory Factor Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structural Equation Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measurementinvariance_cont.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Continuous Indicators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Structural after Measurement Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./latentgrowthmodel.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Latent Growth Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measurementinvariance_ord.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Ordinal Indicators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lpa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Latent Profile Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Latent Class Analysis</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#loading-r-packages" id="toc-loading-r-packages" class="nav-link active" data-scroll-target="#loading-r-packages"><span class="header-section-number">9.1</span> Loading R packages</a></li>
+  <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data"><span class="header-section-number">9.2</span> Loading Data</a></li>
+  <li><a href="#visualizing-the-data" id="toc-visualizing-the-data" class="nav-link" data-scroll-target="#visualizing-the-data"><span class="header-section-number">9.3</span> Visualizing the data</a></li>
+  <li><a href="#basic-latent-growth-models" id="toc-basic-latent-growth-models" class="nav-link" data-scroll-target="#basic-latent-growth-models"><span class="header-section-number">9.4</span> Basic Latent Growth Models</a>
+  <ul class="collapse">
+  <li><a href="#specification" id="toc-specification" class="nav-link" data-scroll-target="#specification">Specification</a></li>
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation">Estimation</a></li>
+  <li><a href="#compare-lgm-growth-structures" id="toc-compare-lgm-growth-structures" class="nav-link" data-scroll-target="#compare-lgm-growth-structures">Compare LGM growth structures</a></li>
+  <li><a href="#model-fit-evaluation" id="toc-model-fit-evaluation" class="nav-link" data-scroll-target="#model-fit-evaluation">Model Fit Evaluation</a></li>
+  <li><a href="#parameter-estimate-interpretation" id="toc-parameter-estimate-interpretation" class="nav-link" data-scroll-target="#parameter-estimate-interpretation">Parameter Estimate Interpretation</a></li>
+  <li><a href="#comparing-the-observed-to-estimated-trajectory" id="toc-comparing-the-observed-to-estimated-trajectory" class="nav-link" data-scroll-target="#comparing-the-observed-to-estimated-trajectory">Comparing the observed to estimated trajectory</a></li>
+  </ul></li>
+  <li><a href="#extending-the-lgm-with-covariates" id="toc-extending-the-lgm-with-covariates" class="nav-link" data-scroll-target="#extending-the-lgm-with-covariates"><span class="header-section-number">9.5</span> Extending the LGM with covariates</a>
+  <ul class="collapse">
+  <li><a href="#including-a-time-invariant-covariate-sex" id="toc-including-a-time-invariant-covariate-sex" class="nav-link" data-scroll-target="#including-a-time-invariant-covariate-sex">Including a Time-Invariant Covariate: Sex</a></li>
+  <li><a href="#including-a-time-varying-covariate-state-social-anxiety" id="toc-including-a-time-varying-covariate-state-social-anxiety" class="nav-link" data-scroll-target="#including-a-time-varying-covariate-state-social-anxiety">Including a Time-Varying Covariate: State-Social Anxiety</a></li>
+  <li><a href="#including-a-distal-outcome-state-social-anxiety" id="toc-including-a-distal-outcome-state-social-anxiety" class="nav-link" data-scroll-target="#including-a-distal-outcome-state-social-anxiety">Including a (Distal) Outcome: State-Social Anxiety</a></li>
+  </ul></li>
+  <li><a href="#example-write-up" id="toc-example-write-up" class="nav-link" data-scroll-target="#example-write-up"><span class="header-section-number">9.6</span> Example Write-Up</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">9.7</span> Summary</a></li>
+  <li><a href="#bonus-1-residual-variance-structure" id="toc-bonus-1-residual-variance-structure" class="nav-link" data-scroll-target="#bonus-1-residual-variance-structure"><span class="header-section-number">9.8</span> Bonus 1: Residual Variance Structure</a></li>
+  <li><a href="#bonus-2-including-a-residual-covariance-structure" id="toc-bonus-2-including-a-residual-covariance-structure" class="nav-link" data-scroll-target="#bonus-2-including-a-residual-covariance-structure"><span class="header-section-number">9.9</span> Bonus 2: Including a Residual Covariance Structure</a></li>
+  <li><a href="#bonus-3-parallel-growth-models" id="toc-bonus-3-parallel-growth-models" class="nav-link" data-scroll-target="#bonus-3-parallel-growth-models"><span class="header-section-number">9.10</span> Bonus 3: Parallel Growth Models</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Latent Growth Modeling</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can download the R code used in this lab by right-clicking this link and selecting “Save Link As…” in the drop-down menu: <a href="https://winterstat.github.io/escp9710_rlabs/data/latentgrowthmodel.R">latentgrowthmodel.R</a></p>
+</div>
+</div>
+<section id="loading-r-packages" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="loading-r-packages"><span class="header-section-number">9.1</span> Loading R packages</h2>
+<p>Load the required packages for this lab into your R environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)         <span class="co"># used to estimate CFAs and SEMs</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semTools)       <span class="co"># used to compare models</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)        <span class="co"># to visualize trajectories</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)          <span class="co"># data wrangling</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)          <span class="co"># data wrangling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="loading-data" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="loading-data"><span class="header-section-number">9.2</span> Loading Data</h2>
+<p>We’re going to look at a subset of time points from a 21-day daily diary study. Our data contains 4 measurement waves at 4-day intervals for 240 participants (with missing values at later time points). We will focus on two constructs: perfectionistic self-presentation (PSP), which (as operationalized in these data) measures an individual’s desire to hide their imperfections; and 2) state social anxiety (SSA), which measures transitory feelings of anxiety associated with social situations. You can download the data by right-clicking this link and selecting “Save Link As…” in the drop-down menu: <a href="https://winterstat.github.io/escp9710_rlabs/data/projectkids.csv">data/longitudinal.csv</a>. Make sure to save it in the folder you are using for this class. These data are part of a larger study, and the full data set can be found here: <a href="https://osf.io/hwkem/" class="uri">https://osf.io/hwkem/</a>.</p>
+<p>We will start by loading the data into our environment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>diary <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"data/longitudinal.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualizing-the-data" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="visualizing-the-data"><span class="header-section-number">9.3</span> Visualizing the data</h2>
+<p>For this example, we will focus on the development of perfectionistic self-presentation (PSP) over time. We will first look at the distribution of this variable at each time point:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>diary <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(psp1<span class="sc">:</span>psp5) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>value)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 166 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="latentgrowthmodel_files/figure-html/disvis-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Question: Do the variables look Normally distributed?</strong></p>
+<p>We can also use the functions from the <code>semTools</code> package to explore the distributions further:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Univariate skew and kurtosis</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(diary[,<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>], <span class="dv">2</span>, skew)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               sexm        psp1      psp2      psp3
+skew (g1) 1.5765565 -0.40015823 0.1261088 0.2233847
+se        0.1581139  0.15811388 0.1662822 0.1719205
+z         9.9710190 -2.53082285 0.7584025 1.2993491
+p         0.0000000  0.01137953 0.4482101 0.1938241</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(diary[,<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>], <span class="dv">2</span>, kurtosis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     sexm        psp1         psp2          psp3
+Excess Kur (g2) 0.4895404 -0.68049195 -1.072857005 -1.1489708600
+se              0.3162278  0.31622777  0.332564397  0.3438409530
+z               1.5480627 -2.15190450 -3.226012809 -3.3415765338
+p               0.1216072  0.03140488  0.001255277  0.0008330405</code></pre>
+</div>
+</div>
+<p>Next, to inform our initial model growth factors, we can visualize the average change over time in our sample using the average scores at each time point.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>diary <span class="sc">%&gt;%</span> <span class="fu">select</span>(id<span class="sc">:</span>psp5) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(psp1<span class="sc">:</span>psp5, <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T))) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> psp1<span class="sc">:</span>psp5, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"time"</span>, <span class="at">names_prefix =</span> <span class="st">"psp"</span>, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_transform =</span> as.numeric, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"score"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> score)) <span class="sc">+</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Time Point"</span>, <span class="at">y =</span> <span class="st">"Average PSP Score"</span>) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="latentgrowthmodel_files/figure-html/visual-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Question: What kind of shape does the developmental trajectory look like?</strong></p>
+</section>
+<section id="basic-latent-growth-models" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="basic-latent-growth-models"><span class="header-section-number">9.4</span> Basic Latent Growth Models</h2>
+<section id="specification" class="level3">
+<h3 class="anchored" data-anchor-id="specification">Specification</h3>
+<p>We can estimate several latent growth models and compare their fit, starting with a linear growth model, followed by a quadratic growth model, a cubic growth model, and finally a latent basis model. Below is the code to specify each of these three models:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lgm_linear <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*psp1 + 1*psp2 + 2*psp3 + 3*psp4 + 4*psp5</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>lgm_quad <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*psp1 + 1*psp2 + 2*psp3 + 3*psp4 + 4*psp5</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="st">q =~ 0*psp1 + 1*psp2 + 4*psp3 + 9*psp4 + 16*psp5</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>lgm_cube <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*psp1 + 1*psp2 + 2*psp3 + 3*psp4 + 4*psp5</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="st">q =~ 0*psp1 + 1*psp2 + 4*psp3 + 9*psp4 + 16*psp5</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="st">c =~ 0*psp1 + 1*psp2 + 8*psp3 + 27*psp4 + 64*psp5</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>lgm_basis <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*psp1 + psp2 + psp3 + psp4 + 1*psp5</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that covariances between intercept and slope(s) are automatically included and don’t need to be explicitly specified.</p>
+<p><strong>Question: Should we also include a piecewise growth structure?</strong></p>
+</section>
+<section id="estimation" class="level3">
+<h3 class="anchored" data-anchor-id="estimation">Estimation</h3>
+<p>Next, we can estimate these models using the <code>growth()</code> function. This function tells <code>lavaan</code> that you want to estimate a growth model, which ensures that certain components (e.g., the latent variable mean structure) are automatically included. We will use the <code>mlr</code> estimator to account for non-Normality and <code>fiml</code> to account for missing data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the linear LGM using the growth() function</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fit_linear <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_linear, <span class="at">data =</span> diary, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the quadratic LGM using the growth() function</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>fit_quad <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_quad, <span class="at">data =</span> diary, </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the quadratic LGM using the growth() function</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>fit_cube <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_cube, <span class="at">data =</span> diary, </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   covariance matrix of latent variables is not positive definite ; use 
+   lavInspect(fit, "cov.lv") to investigate.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the basis LGM using the growth() function</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fit_basis <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_basis, <span class="at">data =</span> diary, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Question: Did you encounter any estimation issues?</strong></p>
+</section>
+<section id="compare-lgm-growth-structures" class="level3">
+<h3 class="anchored" data-anchor-id="compare-lgm-growth-structures">Compare LGM growth structures</h3>
+<p>Before we compare the fit of the three models, we need to make sure that all three models are nested. If models are not nested, we can compare them using the BIC and AIC instead. Note that I am ignoring any estimation issues for this section for illustration sake, <strong>but you should not do that</strong>! Model fit indices based on inadmissible/impossible estimates are not useful.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">net</span>(fit_linear, fit_quad, fit_cube, fit_basis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        If cell [R, C] is TRUE, the model in row R is nested within column C.
+
+        If the models also have the same degrees of freedom, they are equivalent.
+
+        NA indicates the model in column C did not converge when fit to the
+        implied means and covariance matrix from the model in row R.
+
+        The hidden diagonal is TRUE because any model is equivalent to itself.
+        The upper triangle is hidden because for models with the same degrees
+        of freedom, cell [C, R] == cell [R, C].  For all models with different
+        degrees of freedom, the upper diagonal is all FALSE because models with
+        fewer degrees of freedom (i.e., more parameters) cannot be nested
+        within models with more degrees of freedom (i.e., fewer parameters).
+        
+                     fit_cube fit_quad fit_basis fit_linear
+fit_cube (df = 1)                                          
+fit_quad (df = 6)    TRUE                                  
+fit_basis (df = 7)   FALSE    FALSE                        
+fit_linear (df = 10) TRUE     TRUE     TRUE                </code></pre>
+</div>
+</div>
+<p><strong>Question: Which models can we compare using a Chi-square difference test? And which models do we need to compare with BIC/AIC?</strong></p>
+<section id="comparing-linear-to-quadratic" class="level4">
+<h4 class="anchored" data-anchor-id="comparing-linear-to-quadratic">Comparing Linear to Quadratic</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>comp_lq <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_linear, fit_quad)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>comp_lq<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+           Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)    
+fit_quad    6 3529.6 3578.3 17.107                                  
+fit_linear 10 3580.5 3615.3 76.048     42.632       4  1.234e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="comparing-linear-to-cubic" class="level4">
+<h4 class="anchored" data-anchor-id="comparing-linear-to-cubic">Comparing Linear to Cubic</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>comp_lc <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_linear, fit_cube)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>comp_lc<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+           Df    AIC    BIC   Chisq Chisq diff Df diff Pr(&gt;Chisq)    
+fit_cube    1 3522.8 3588.9  0.3288                                  
+fit_linear 10 3580.5 3615.3 76.0476     63.717       9  2.561e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="comparing-linear-to-basis" class="level4">
+<h4 class="anchored" data-anchor-id="comparing-linear-to-basis">Comparing Linear to Basis</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>comp_lb <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_linear, fit_basis)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>comp_lb<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+           Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)    
+fit_basis   7 3531.5 3576.8 21.073                                  
+fit_linear 10 3580.5 3615.3 76.048     49.804       3  8.794e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="comparing-quadratic-and-cubic-to-basis" class="level4">
+<h4 class="anchored" data-anchor-id="comparing-quadratic-and-cubic-to-basis">Comparing Quadratic and Cubic to Basis</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>comp_qcb <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_quad, fit_cube, fit_basis)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>comp_qcb<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+          Df    AIC    BIC   Chisq Chisq diff Df diff Pr(&gt;Chisq)   
+fit_cube   1 3522.8 3588.9  0.3288                                 
+fit_quad   6 3529.6 3578.3 17.1065    16.2418       5   0.006187 **
+fit_basis  7 3531.5 3576.8 21.0731     1.7877       1   0.181209   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p><strong>Question: Which of the three models fits best (taking into account estimation issues)?</strong></p>
+</section>
+<section id="evaluating-the-appropriateness-of-the-latent-basis-model" class="level4">
+<h4 class="anchored" data-anchor-id="evaluating-the-appropriateness-of-the-latent-basis-model">Evaluating the appropriateness of the latent basis model</h4>
+<p>Wu and Lang (2016) have shown that the proportionality assumption of the latent basis model (i.e., the percentage of growth attained at each time point is constrained to be equal across all people) can be tenable if, in a quadratic growth model, the linear and quadratic slope variances are non-significant. This would indicate that there is no between-individual variation in the amount of change across time points, in line with the proportionality assumption. All of this rests on the assumption that a quadratic model is the correct model. We can look at the significance of the linear and quadratic variances using the <code>summary</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_quad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 70 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        14
+
+  Number of observations                           240
+  Number of missing patterns                        15
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                                17.107      16.433
+  Degrees of freedom                                 6           6
+  P-value (Chi-square)                           0.009       0.012
+  Scaling correction factor                                  1.041
+    Yuan-Bentler correction (Mplus variant)                       
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i =~                                                
+    psp1              1.000                           
+    psp2              1.000                           
+    psp3              1.000                           
+    psp4              1.000                           
+    psp5              1.000                           
+  s =~                                                
+    psp1              0.000                           
+    psp2              1.000                           
+    psp3              2.000                           
+    psp4              3.000                           
+    psp5              4.000                           
+  q =~                                                
+    psp1              0.000                           
+    psp2              1.000                           
+    psp3              4.000                           
+    psp4              9.000                           
+    psp5             16.000                           
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  i ~~                                                
+    s                 0.395    0.225    1.757    0.079
+    q                -0.088    0.048   -1.841    0.066
+  s ~~                                                
+    q                -0.042    0.040   -1.037    0.300
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+    i                 4.392    0.110   39.989    0.000
+    s                -0.677    0.080   -8.467    0.000
+    q                 0.115    0.018    6.253    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .psp1              1.288    0.280    4.597    0.000
+   .psp2              0.766    0.125    6.151    0.000
+   .psp3              0.742    0.164    4.535    0.000
+   .psp4              0.922    0.267    3.450    0.001
+   .psp5              0.172    0.351    0.490    0.624
+    i                 1.669    0.297    5.615    0.000
+    s                 0.209    0.202    1.037    0.300
+    q                 0.014    0.010    1.401    0.161</code></pre>
+</div>
+</div>
+<p><strong>Question: Is it OK to move forward with the latent basis model?</strong></p>
+</section>
+</section>
+<section id="model-fit-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="model-fit-evaluation">Model Fit Evaluation</h3>
+<p>Focusing on the best-fitting model according to our comparisons above, the latent basis model, we will now examine global and local fit.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_basis, <span class="at">fit.measures =</span> T, <span class="at">estimates =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 44 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        13
+
+  Number of observations                           240
+  Number of missing patterns                        15
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                                21.073      17.426
+  Degrees of freedom                                 7           7
+  P-value (Chi-square)                           0.004       0.015
+  Scaling correction factor                                  1.209
+    Yuan-Bentler correction (Mplus variant)                       
+
+Model Test Baseline Model:
+
+  Test statistic                               730.786     346.167
+  Degrees of freedom                                10          10
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  2.111
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.980       0.969
+  Tucker-Lewis Index (TLI)                       0.972       0.956
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.982
+  Robust Tucker-Lewis Index (TLI)                            0.974
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -1752.772   -1752.772
+  Scaling correction factor                                  1.541
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)      -1742.236   -1742.236
+  Scaling correction factor                                  1.425
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                                3531.545    3531.545
+  Bayesian (BIC)                              3576.793    3576.793
+  Sample-size adjusted Bayesian (SABIC)       3535.586    3535.586
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.092       0.079
+  90 Percent confidence interval - lower         0.048       0.037
+  90 Percent confidence interval - upper         0.138       0.122
+  P-value H_0: RMSEA &lt;= 0.050                    0.056       0.115
+  P-value H_0: RMSEA &gt;= 0.080                    0.704       0.526
+                                                                  
+  Robust RMSEA                                               0.099
+  90 Percent confidence interval - lower                     0.037
+  90 Percent confidence interval - upper                     0.162
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.084
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.741
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.022       0.022</code></pre>
+</div>
+</div>
+<p><strong>Question: Does global fit look good? Or bad?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit_basis, <span class="at">type =</span> <span class="st">"cor.bollen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$type
+[1] "cor.bollen"
+
+$cov
+       psp1   psp2   psp3   psp4   psp5
+psp1  0.000                            
+psp2  0.001  0.000                     
+psp3  0.008  0.046  0.000              
+psp4  0.004 -0.015 -0.025  0.000       
+psp5 -0.012 -0.049 -0.009  0.038  0.000
+
+$mean
+  psp1   psp2   psp3   psp4   psp5 
+ 0.001 -0.010 -0.012  0.003  0.023 </code></pre>
+</div>
+</div>
+<p><strong>Question: Does local fit look good? Or bad?</strong></p>
+</section>
+<section id="parameter-estimate-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="parameter-estimate-interpretation">Parameter Estimate Interpretation</h3>
+<p>Next, we can look at the parameter estimates and interpret them to see what they tell us about the development of PSP over the course of 16 days.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_basis, <span class="at">std =</span> T, <span class="at">rsquare =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 44 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        13
+
+  Number of observations                           240
+  Number of missing patterns                        15
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                                21.073      17.426
+  Degrees of freedom                                 7           7
+  P-value (Chi-square)                           0.004       0.015
+  Scaling correction factor                                  1.209
+    Yuan-Bentler correction (Mplus variant)                       
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    psp1              1.000                               1.620    0.966
+    psp2              1.000                               1.620    0.869
+    psp3              1.000                               1.620    0.852
+    psp4              1.000                               1.620    0.836
+    psp5              1.000                               1.620    0.825
+  s =~                                                                  
+    psp1              0.000                               0.000    0.000
+    psp2              0.743    0.085    8.720    0.000    1.058    0.567
+    psp3              0.904    0.071   12.684    0.000    1.287    0.677
+    psp4              0.948    0.047   20.162    0.000    1.349    0.696
+    psp5              1.000                               1.423    0.725
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i ~~                                                                  
+    s                -0.810    0.499   -1.622    0.105   -0.351   -0.351
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+    i                 4.480    0.108   41.452    0.000    2.766    2.766
+    s                -1.028    0.112   -9.168    0.000   -0.722   -0.722
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .psp1              0.188    0.446    0.422    0.673    0.188    0.067
+   .psp2              0.938    0.141    6.633    0.000    0.938    0.270
+   .psp3              0.802    0.188    4.258    0.000    0.802    0.222
+   .psp4              0.848    0.262    3.239    0.001    0.848    0.226
+   .psp5              0.826    0.207    3.998    0.000    0.826    0.214
+    i                 2.623    0.494    5.312    0.000    1.000    1.000
+    s                 2.025    0.519    3.899    0.000    1.000    1.000
+
+R-Square:
+                   Estimate
+    psp1              0.933
+    psp2              0.730
+    psp3              0.778
+    psp4              0.774
+    psp5              0.786</code></pre>
+</div>
+</div>
+<p>(See example write-up below for details.)</p>
+</section>
+<section id="comparing-the-observed-to-estimated-trajectory" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-the-observed-to-estimated-trajectory">Comparing the observed to estimated trajectory</h3>
+<p>We can visualize the model-implied, or predicted, trajectory and compare it to the observed trajectory, to get a better idea of how closely the estimated trajectory matches onto the observed trajectory.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get observed growth curve</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>obs_curve <span class="ot">&lt;-</span> diary <span class="sc">%&gt;%</span> <span class="fu">select</span>(id<span class="sc">:</span>psp5) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(psp1<span class="sc">:</span>psp5, <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> T))) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> psp1<span class="sc">:</span>psp5, </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"time"</span>, <span class="at">names_prefix =</span> <span class="st">"psp"</span>, </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_transform =</span> as.numeric)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Get predicted growth curve</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>pred_curve <span class="ot">&lt;-</span> <span class="fu">lavPredict</span>(fit_basis) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">t1 =</span> i <span class="sc">+</span> <span class="dv">0</span><span class="sc">*</span>s,</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">t2 =</span> i <span class="sc">+</span> .<span class="dv">743</span><span class="sc">*</span>s,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">t3 =</span> i <span class="sc">+</span> .<span class="dv">904</span><span class="sc">*</span>s,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">t4 =</span> i <span class="sc">+</span> .<span class="dv">948</span><span class="sc">*</span>s,</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">t5 =</span> i <span class="sc">+</span> <span class="dv">1</span><span class="sc">*</span>s) <span class="sc">%&gt;%</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> t1<span class="sc">:</span>t5, </span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"time"</span>, <span class="at">names_prefix =</span> <span class="st">"t"</span>, </span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_transform =</span> as.numeric) <span class="sc">%&gt;%</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">value =</span> <span class="fu">mean</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, value)</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot:</span></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(obs_curve, pred_curve, <span class="at">.id =</span> <span class="st">"type"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">ifelse</span>(type <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"Observed"</span>, <span class="st">"Predicted"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">group =</span> type, <span class="at">color =</span> type, <span class="at">linetype =</span> type)) <span class="sc">+</span></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> value), </span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">linewidth =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> value), </span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Average PSP Score"</span>) <span class="sc">+</span></span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Day"</span>, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>,<span class="dv">5</span>), </span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">13</span>,<span class="dv">17</span>)) <span class="sc">+</span></span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="latentgrowthmodel_files/figure-html/visual2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can compare this figure to one based on the quadratic growth model estimates to understand how each model differs in the predictions they make about the trajectory of change in perfectionistic self-presentation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get predicted growth curve</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>pred_curve2 <span class="ot">&lt;-</span> <span class="fu">lavPredict</span>(fit_quad) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">t1 =</span> i <span class="sc">+</span> <span class="dv">0</span><span class="sc">*</span>s <span class="sc">+</span> <span class="dv">0</span><span class="sc">*</span>q,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">t2 =</span> i <span class="sc">+</span> <span class="dv">1</span><span class="sc">*</span>s <span class="sc">+</span> <span class="dv">1</span><span class="sc">*</span>q,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">t3 =</span> i <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>s <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>q,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">t4 =</span> i <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>s <span class="sc">+</span> <span class="dv">9</span><span class="sc">*</span>q,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">t5 =</span> i <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>s <span class="sc">+</span> <span class="dv">16</span><span class="sc">*</span>q) <span class="sc">%&gt;%</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> t1<span class="sc">:</span>t5, </span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"time"</span>, <span class="at">names_prefix =</span> <span class="st">"t"</span>, </span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_transform =</span> as.numeric) <span class="sc">%&gt;%</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">value =</span> <span class="fu">mean</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, value)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot:</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(obs_curve, pred_curve2, <span class="at">.id =</span> <span class="st">"type"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">ifelse</span>(type <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"Observed"</span>, <span class="st">"Predicted"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">group =</span> type, <span class="at">color =</span> type, <span class="at">linetype =</span> type)) <span class="sc">+</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> value), </span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">linewidth =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> value), </span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Average PSP Score"</span>) <span class="sc">+</span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Day"</span>, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>,<span class="dv">5</span>), </span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">13</span>,<span class="dv">17</span>)) <span class="sc">+</span></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="latentgrowthmodel_files/figure-html/visual3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Question: What are the main differences between the predicted trajectories?</strong></p>
+</section>
+</section>
+<section id="extending-the-lgm-with-covariates" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="extending-the-lgm-with-covariates"><span class="header-section-number">9.5</span> Extending the LGM with covariates</h2>
+<p>Below we will go over three options for extending the basic LGM. In a typical study, you would have already determined which of these aligns with your hypotheses. However, since this is a lab, I want to show you all the options.</p>
+<section id="including-a-time-invariant-covariate-sex" class="level3">
+<h3 class="anchored" data-anchor-id="including-a-time-invariant-covariate-sex">Including a Time-Invariant Covariate: Sex</h3>
+<p>We can include the participant’s self-reported sex (0 = female, 1 = male) as a time-invariant covariate and see if it can explain individual differences in the initial level of or change in PSP.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>lgm_ti_cov <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*psp1 + psp2 + psp3 + psp4 + 1*psp5</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="st">i ~ sexm</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="st">s ~ sexm</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>fit_ti_cov <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_ti_cov, <span class="at">data =</span> diary, </span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_ti_cov, <span class="at">fit.measures =</span> T, <span class="at">rsquare =</span> T, <span class="at">std =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 52 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        15
+
+  Number of observations                           240
+  Number of missing patterns                        15
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                                26.729      24.671
+  Degrees of freedom                                10          10
+  P-value (Chi-square)                           0.003       0.006
+  Scaling correction factor                                  1.083
+    Yuan-Bentler correction (Mplus variant)                       
+
+Model Test Baseline Model:
+
+  Test statistic                               738.606     438.423
+  Degrees of freedom                                15          15
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.685
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.977       0.965
+  Tucker-Lewis Index (TLI)                       0.965       0.948
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.977
+  Robust Tucker-Lewis Index (TLI)                            0.966
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -1751.690   -1751.690
+  Scaling correction factor                                  1.455
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)      -1738.326   -1738.326
+  Scaling correction factor                                  1.306
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                                3533.381    3533.381
+  Bayesian (BIC)                              3585.590    3585.590
+  Sample-size adjusted Bayesian (SABIC)       3538.044    3538.044
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.083       0.078
+  90 Percent confidence interval - lower         0.046       0.041
+  90 Percent confidence interval - upper         0.123       0.116
+  P-value H_0: RMSEA &lt;= 0.050                    0.068       0.097
+  P-value H_0: RMSEA &gt;= 0.080                    0.599       0.508
+                                                                  
+  Robust RMSEA                                               0.093
+  90 Percent confidence interval - lower                     0.045
+  90 Percent confidence interval - upper                     0.142
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.068
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.707
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.025       0.025
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    psp1              1.000                               1.620    0.966
+    psp2              1.000                               1.620    0.869
+    psp3              1.000                               1.620    0.852
+    psp4              1.000                               1.620    0.837
+    psp5              1.000                               1.620    0.826
+  s =~                                                                  
+    psp1              0.000                               0.000    0.000
+    psp2              0.743    0.085    8.686    0.000    1.058    0.568
+    psp3              0.902    0.071   12.627    0.000    1.286    0.676
+    psp4              0.948    0.047   20.181    0.000    1.352    0.698
+    psp5              1.000                               1.425    0.726
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i ~                                                                   
+    sexm             -0.319    0.260   -1.227    0.220   -0.197   -0.077
+  s ~                                                                   
+    sexm             -0.114    0.264   -0.434    0.664   -0.080   -0.032
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .i ~~                                                                  
+   .s                -0.819    0.494   -1.658    0.097   -0.356   -0.356
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .i                 4.541    0.122   37.270    0.000    2.802    2.802
+   .s                -1.008    0.123   -8.182    0.000   -0.707   -0.707
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .psp1              0.186    0.442    0.420    0.674    0.186    0.066
+   .psp2              0.940    0.141    6.653    0.000    0.940    0.270
+   .psp3              0.810    0.190    4.255    0.000    0.810    0.224
+   .psp4              0.840    0.261    3.215    0.001    0.840    0.224
+   .psp5              0.824    0.206    4.005    0.000    0.824    0.214
+   .i                 2.610    0.491    5.320    0.000    0.994    0.994
+   .s                 2.029    0.516    3.930    0.000    0.999    0.999
+
+R-Square:
+                   Estimate
+    psp1              0.934
+    psp2              0.730
+    psp3              0.776
+    psp4              0.776
+    psp5              0.786
+    i                 0.006
+    s                 0.001</code></pre>
+</div>
+</div>
+<p><strong>Question: What do you conclude about the effect of a person’s sex on their PSP trajectory?</strong></p>
+</section>
+<section id="including-a-time-varying-covariate-state-social-anxiety" class="level3">
+<h3 class="anchored" data-anchor-id="including-a-time-varying-covariate-state-social-anxiety">Including a Time-Varying Covariate: State-Social Anxiety</h3>
+<p>We can also include SSA as a time-varying covariate and see to what extent it is associated with concurrent (i.e., at the same time) levels of PSP after the main developmental trajectory has already been accounted for by the growth model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>lgm_tv_cov <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*psp1 + psp2 + psp3 + psp4 + 1*psp5</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="st"># regression paths</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="st">psp1 ~ ssa1</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="st">psp2 ~ ssa2</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="st">psp3 ~ ssa3</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="st">psp4 ~ ssa4</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="st">psp5 ~ ssa5</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="st"># covariances between time-varying covariate</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="st">ssa1 ~~ ssa2 + ssa3 + ssa4 + ssa5</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="st">ssa2 ~~ ssa3 + ssa4 + ssa5</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="st">ssa3 ~~ ssa4 + ssa5</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="st">ssa4 ~~ ssa5</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="st"># means of time varying covariate</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="st">ssa1 ~ 1</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="st">ssa2 ~ 1</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="st">ssa3 ~ 1</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="st">ssa4 ~ 1</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a><span class="st">ssa5 ~ 1</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>fit_tv_cov <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_tv_cov, <span class="at">data =</span> diary, </span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>                     <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_tv_cov, <span class="at">fit.measures =</span> T, <span class="at">rsquare =</span> T, <span class="at">std =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 56 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        38
+
+  Number of observations                           240
+  Number of missing patterns                        15
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               100.722      83.676
+  Degrees of freedom                                27          27
+  P-value (Chi-square)                           0.000       0.000
+  Scaling correction factor                                  1.204
+    Yuan-Bentler correction (Mplus variant)                       
+
+Model Test Baseline Model:
+
+  Test statistic                              1719.080    1185.277
+  Degrees of freedom                                45          45
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.450
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.956       0.950
+  Tucker-Lewis Index (TLI)                       0.927       0.917
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.961
+  Robust Tucker-Lewis Index (TLI)                            0.935
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -2821.490   -2821.490
+  Scaling correction factor                                  1.270
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)      -2771.129   -2771.129
+  Scaling correction factor                                  1.242
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                                5718.981    5718.981
+  Bayesian (BIC)                              5851.245    5851.245
+  Sample-size adjusted Bayesian (SABIC)       5730.794    5730.794
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.107       0.094
+  90 Percent confidence interval - lower         0.085       0.073
+  90 Percent confidence interval - upper         0.129       0.115
+  P-value H_0: RMSEA &lt;= 0.050                    0.000       0.000
+  P-value H_0: RMSEA &gt;= 0.080                    0.977       0.868
+                                                                  
+  Robust RMSEA                                               0.111
+  90 Percent confidence interval - lower                     0.083
+  90 Percent confidence interval - upper                     0.140
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.000
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.966
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.170       0.170
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    psp1              1.000                               1.176    0.754
+    psp2              1.000                               1.176    0.721
+    psp3              1.000                               1.176    0.690
+    psp4              1.000                               1.176    0.669
+    psp5              1.000                               1.176    0.671
+  s =~                                                                  
+    psp1              0.000                               0.000    0.000
+    psp2              0.752    0.095    7.934    0.000    0.778    0.477
+    psp3              0.961    0.088   10.943    0.000    0.994    0.583
+    psp4              0.964    0.077   12.550    0.000    0.996    0.567
+    psp5              1.000                               1.034    0.590
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  psp1 ~                                                                
+    ssa1              0.725    0.096    7.557    0.000    0.725    0.462
+  psp2 ~                                                                
+    ssa2              0.891    0.084   10.586    0.000    0.891    0.584
+  psp3 ~                                                                
+    ssa3              0.944    0.084   11.199    0.000    0.944    0.602
+  psp4 ~                                                                
+    ssa4              0.965    0.100    9.690    0.000    0.965    0.568
+  psp5 ~                                                                
+    ssa5              0.988    0.091   10.918    0.000    0.988    0.628
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  ssa1 ~~                                                               
+    ssa2              0.651    0.067    9.650    0.000    0.651    0.612
+    ssa3              0.632    0.070    9.031    0.000    0.632    0.585
+    ssa4              0.610    0.071    8.642    0.000    0.610    0.593
+    ssa5              0.616    0.084    7.346    0.000    0.616    0.557
+  ssa2 ~~                                                               
+    ssa3              0.845    0.074   11.467    0.000    0.845    0.727
+    ssa4              0.765    0.077    9.956    0.000    0.765    0.691
+    ssa5              0.752    0.086    8.763    0.000    0.752    0.631
+  ssa3 ~~                                                               
+    ssa4              0.759    0.080    9.526    0.000    0.759    0.675
+    ssa5              0.808    0.088    9.201    0.000    0.808    0.668
+  ssa4 ~~                                                               
+    ssa5              0.831    0.095    8.723    0.000    0.831    0.721
+  i ~~                                                                  
+    s                -0.603    0.441   -1.367    0.172   -0.497   -0.497
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+    ssa1              1.651    0.064   25.744    0.000    1.651    1.662
+    ssa2              1.392    0.070   19.741    0.000    1.392    1.301
+    ssa3              1.370    0.073   18.755    0.000    1.370    1.261
+    ssa4              1.301    0.071   18.236    0.000    1.301    1.257
+    ssa5              1.327    0.077   17.321    0.000    1.327    1.193
+    i                 3.284    0.198   16.624    0.000    2.793    2.793
+    s                -1.098    0.218   -5.042    0.000   -1.062   -1.062
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .psp1              0.532    0.413    1.289    0.197    0.532    0.219
+   .psp2              0.671    0.083    8.057    0.000    0.671    0.253
+   .psp3              0.645    0.129    5.008    0.000    0.645    0.222
+   .psp4              0.882    0.226    3.905    0.000    0.882    0.285
+   .psp5              0.619    0.100    6.179    0.000    0.619    0.201
+    ssa1              0.987    0.067   14.725    0.000    0.987    1.000
+    ssa2              1.144    0.079   14.527    0.000    1.144    1.000
+    ssa3              1.181    0.083   14.178    0.000    1.181    1.000
+    ssa4              1.072    0.091   11.788    0.000    1.072    1.000
+    ssa5              1.239    0.110   11.260    0.000    1.239    1.000
+    i                 1.382    0.438    3.152    0.002    1.000    1.000
+    s                 1.068    0.438    2.437    0.015    1.000    1.000
+
+R-Square:
+                   Estimate
+    psp1              0.781
+    psp2              0.747
+    psp3              0.778
+    psp4              0.715
+    psp5              0.799</code></pre>
+</div>
+</div>
+<p><strong>Question: What do you conclude about the effect of a SSA on their concurrent PSP levels?</strong></p>
+</section>
+<section id="including-a-distal-outcome-state-social-anxiety" class="level3">
+<h3 class="anchored" data-anchor-id="including-a-distal-outcome-state-social-anxiety">Including a (Distal) Outcome: State-Social Anxiety</h3>
+<p>Finally, we can include SSA on Day 16 as an outcome variable that is predicted by the initial level of and changes in PSP. Note that it is more typical for such an outcome to be measured at a time point that is later than the final time point included in the growth model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>lgm_outcome <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*psp1 + psp2 + psp3 + psp4 + + 1*psp5</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="st"># regression path to distal outcome</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="st">ssa5 ~ i + s</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="st"># intercept of distal outcome</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="st">ssa5 ~ 1 </span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>fit_outcome <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_outcome, <span class="at">data =</span> diary, </span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_model_vcov():  
+   Could not compute standard errors! The information matrix could not be 
+   inverted. This may be a symptom that the model is not identified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_test_yuan_bentler():  
+   could not invert information [matrix needed for robust test statistic</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   covariance matrix of latent variables is not positive definite ; use 
+   lavInspect(fit, "cov.lv") to investigate.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_outcome, <span class="at">fit.measures =</span> T, <span class="at">rsquare =</span> T, <span class="at">std =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_fit_cfi_lavobject():  
+   computation of robust CFI failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_fit_rmsea_lavobject():  
+   computation of robust RMSEA failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 1232 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        17
+
+  Number of observations                           240
+  Number of missing patterns                        15
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                                58.529          NA
+  Degrees of freedom                                10          10
+  P-value (Chi-square)                           0.000          NA
+  Scaling correction factor                                     NA
+                                                                  
+
+Model Test Baseline Model:
+
+  Test statistic                               880.001     498.066
+  Degrees of freedom                                15          15
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.767
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.944          NA
+  Tucker-Lewis Index (TLI)                       0.916          NA
+                                                                  
+  Robust Comparative Fit Index (CFI)                            NA
+  Robust Tucker-Lewis Index (TLI)                               NA
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -1979.714   -1979.714
+  Loglikelihood unrestricted model (H1)      -1950.450   -1950.450
+                                                                  
+  Akaike (AIC)                                3993.428    3993.428
+  Bayesian (BIC)                              4052.599    4052.599
+  Sample-size adjusted Bayesian (SABIC)       3998.713    3998.713
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.142          NA
+  90 Percent confidence interval - lower         0.108          NA
+  90 Percent confidence interval - upper         0.178          NA
+  P-value H_0: RMSEA &lt;= 0.050                    0.000          NA
+  P-value H_0: RMSEA &gt;= 0.080                    0.998          NA
+                                                                  
+  Robust RMSEA                                                  NA
+  90 Percent confidence interval - lower                        NA
+  90 Percent confidence interval - upper                        NA
+  P-value H_0: Robust RMSEA &lt;= 0.050                            NA
+  P-value H_0: Robust RMSEA &gt;= 0.080                            NA
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.039       0.039
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    psp1              1.000                               1.131    0.669
+    psp2              1.000                               1.131    0.609
+    psp3              1.000                               1.131    0.592
+    psp4              1.000                               1.131    0.581
+    psp5              1.000                               1.131    0.573
+  s =~                                                                  
+    psp1              0.000                               0.000    0.000
+    psp2              0.685       NA                      0.438    0.236
+    psp3              0.845       NA                      0.541    0.283
+    psp4              0.885       NA                      0.566    0.291
+    psp5              1.000                               0.640    0.324
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  ssa5 ~                                                                
+    i                77.289       NA                     87.385   79.777
+    s              -135.163       NA                    -86.487  -78.958
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i ~~                                                                  
+    s                 0.726       NA                      1.004    1.004
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .ssa5           -483.211       NA                   -483.211 -441.144
+    i                 4.450       NA                      3.936    3.936
+    s                -1.041       NA                     -1.626   -1.626
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .psp1              1.580       NA                      1.580    0.553
+   .psp2              0.981       NA                      0.981    0.285
+   .psp3              0.848       NA                      0.848    0.233
+   .psp4              0.897       NA                      0.897    0.237
+   .psp5              0.749       NA                      0.749    0.193
+   .ssa5             62.964       NA                     62.964   52.479
+    i                 1.278       NA                      1.000    1.000
+    s                 0.409       NA                      1.000    1.000
+
+R-Square:
+                   Estimate
+    psp1              0.447
+    psp2              0.715
+    psp3              0.767
+    psp4              0.763
+    psp5              0.807
+    ssa5            -51.479</code></pre>
+</div>
+</div>
+<p><strong>Question: What do you conclude about the association between initial levels of and changes in PSP and final time point SSA?</strong></p>
+</section>
+</section>
+<section id="example-write-up" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="example-write-up"><span class="header-section-number">9.6</span> Example Write-Up</h2>
+<p>Based on the observed mean trajectory, we estimated four different growth structures, (1) linear, (2) quadratic, (3) cubic, and (4) latent basis. The cubic model resulted in inadmissible estimates (negative variances), likely due to the complexity of the model. Thus, we did not include this model in subsequent comparisons. The linear model fit significantly worse than both the quadratic (<span class="math inline">\(\Delta\chi^2(4) = 42.63, p &lt; .001\)</span>) and latent basis (<span class="math inline">\(\Delta\chi^2(2) = 49.80, p &lt; .001\)</span>) models. As the quadratic and latent basis models are not nested, we used the AIC and BIC to compare the relative fit of these two models. The AIC preferred the quadratic model ((<span class="math inline">\(\Delta AIC = -1.97\)</span>) whereas the BIC preferred the latent basis model (<span class="math inline">\(\Delta BIC = -1.51\)</span>). We placed more weight on the BIC as it has a stronger penalty against overly complex models. This decision was further supported by confirming that the linear and quadratic slope variance of the quadratic model were both non-significant, indicating that there are no significant between-person differences in change in PSP over time, supporting the proportionality assumption of the latent basis model. Thus, we selected the latent basis model for further analyses.</p>
+<p>The latent basis model fit the data well, <span class="math inline">\(\chi^2(7) = 17.43, p = .015, CFI = .982, RMSEA = .099, 90\% CI [.037, .112], SRMR = .022\)</span>. None of the correlation residuals were greater than <span class="math inline">\(|0.10|\)</span>, indicating good local fit. The mean intercept was 4.80 (SE = 0.11), and there was significant between-person variation around the mean intercept (<span class="math inline">\(\psi_{11} = 2.62, SE = 0.549, p = .001\)</span>), indicating that initial levels of PSP varied across participants. The mean slope was -1.03 (<span class="math inline">\(SE = 0.11, p &lt; .001\)</span>), indicating that between the first and last diary entry, participants levels of PSP declined, on average, by about 1 point. There was significant between-person variation in the slope (<span class="math inline">\(\psi_{22} = 2.03, SE = 0.52, p &lt; .001\)</span>). This suggests that, although the proportionality assumption was met, the total change between the first and final time point did vary across participants. Based on the model implied slope loadings, about 74% (<span class="math inline">\(\lambda_{22} = 0.74\)</span>) of that decrease occurred during the first four days. The proportion of decrease then declined between day 5 and 9 (16%), between day 9 and 13 (4%), and stabilized between day 13 and 17 (5%). The covariance between the intercept and slope was not significant (<span class="math inline">\(\psi_{21} = 0.81, SE = 0.50, p = .105, r = -.351\)</span>), indicating that the initial level of PSP was not significantly associated with subsequent changes in PSP. R-squared values indicate that between 63-93% of the variance in the observed PSP scores could be explained by the growth factors.</p>
+<p>To evaluate the potential effect of sex on the initial level and changes in PSP, we included participant self-reported sex as a time-invariant covariate. The model fit the data well (<span class="math inline">\(\chi^2(10) = 24.67, p = .006, CFI = .965, RMSEA = .078, 90\% CI [.041, .116], SRMR = .025\)</span>). None of the correlation residuals were greater than <span class="math inline">\(|0.10|\)</span>, indicating good local fit. Sex was not a significant predictor of the initial level of PSP (<span class="math inline">\(B = -0.32, SE = 0.26, p = .220, \beta = -.08\)</span>) or subsequent change in PSP (<span class="math inline">\(B = -0.11, SE = 0.26, p = .664, \beta = -.03\)</span>). These findings indicate that those identifying as male do not differ from those identifying as female in their initial level of or subsequent changes in PSP during this 17-day study period. A full overview of all parameter estimates can be found in (fictional) Table XX.</p>
+</section>
+<section id="summary" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">9.7</span> Summary</h2>
+<p>In this R lab, you were introduced to the steps involved in specifying, estimating, evaluating, comparing and interpreting the results of latent growth models. In addition, you have seen some ways in which you can expand the basic growth model to include additional predictors or outcomes. Below, you’ll find three Bonus sections that demonstrate how to test the equivalence of residual variances in a growth model, how to include residual covariances, and how to set-up and estimate a parallel growth model. In the next R Lab, you will learn all about measurement invariance testing with ordinal indicators.</p>
+</section>
+<section id="bonus-1-residual-variance-structure" class="level2" data-number="9.8">
+<h2 data-number="9.8" class="anchored" data-anchor-id="bonus-1-residual-variance-structure"><span class="header-section-number">9.8</span> Bonus 1: Residual Variance Structure</h2>
+<p>Focusing once again on a single growth model, we can test if the residual variances can be fixed to be equal across the four time points, by giving all residuals the same label (<code>a</code>). Doing this simplifies the model (instead of estimating 5 residual variances, we estimate 1 residual variance), and simple models (if they fit equally well) should be preferred.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>lgm_basis_eq <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*psp1 + psp2 + psp3 + psp4 + 1*psp5</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="st">psp1 ~~ a*psp1</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="st">psp2 ~~ a*psp2</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="st">psp3 ~~ a*psp3</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="st">psp4 ~~ a*psp4</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="st">psp5 ~~ a*psp5</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>fit_basis_eq <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_basis_eq, <span class="at">data =</span> diary, </span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>comp_bbeq <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_basis, fit_basis_eq)</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>comp_bbeq<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+             Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
+fit_basis     7 3531.5 3576.8 21.073                              
+fit_basis_eq 11 3526.5 3557.8 24.029     1.4454       4     0.8363</code></pre>
+</div>
+</div>
+<p><strong>Question: Does the Chi-square difference test support the hypothesis of equal residual variances?</strong></p>
+</section>
+<section id="bonus-2-including-a-residual-covariance-structure" class="level2" data-number="9.9">
+<h2 data-number="9.9" class="anchored" data-anchor-id="bonus-2-including-a-residual-covariance-structure"><span class="header-section-number">9.9</span> Bonus 2: Including a Residual Covariance Structure</h2>
+<p>Related, we can test if the residual covariances should be included in the model to account for any remaining associations between time points with different lags (after accounting for the main growth model). In the model below, covariances are structured such that those that have the same lag (e.g., adjacent time point) covary equivalently (by giving them a shared label). In addition, as the lag increases, we use a non-linear constraint to force the covariances to decrease (as more time passes, scores have less to do with each other).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>lgm_basis_eqc <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*psp1 + psp2 + psp3 + psp4 + 1*psp5</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="st">psp1 ~~ a*psp1</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="st">psp2 ~~ a*psp2</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="st">psp3 ~~ a*psp3</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="st">psp4 ~~ a*psp4</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="st">psp5 ~~ a*psp5</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="st"># lag-1 residual covariances</span></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="st">psp1 ~~ b*psp2</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="st">psp2 ~~ b*psp3</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="st">psp3 ~~ b*psp4</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="st">psp4 ~~ b*psp5</span></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="st"># lag-2 residual covariances</span></span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="st">psp1 ~~ c*psp3</span></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="st">psp2 ~~ c*psp4</span></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="st">psp3 ~~ c*psp5</span></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a><span class="st"># lag-3 residual covariances</span></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a><span class="st">psp1 ~~ d*psp4</span></span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a><span class="st">psp2 ~~ d*psp5</span></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a><span class="st"># lag-4 residual covariances</span></span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a><span class="st">psp1 ~~ e*psp5</span></span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a><span class="st"># constraints to apply the reducing residual covariance over time assumption</span></span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a><span class="st">c == b^2</span></span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a><span class="st">d == b^3</span></span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a><span class="st">e == b^4</span></span>
+<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb48-34"><a href="#cb48-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-35"><a href="#cb48-35" aria-hidden="true" tabindex="-1"></a>fit_basis_eqc <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_basis_eqc, <span class="at">data =</span> diary, </span>
+<span id="cb48-36"><a href="#cb48-36" aria-hidden="true" tabindex="-1"></a>                     <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb48-37"><a href="#cb48-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-38"><a href="#cb48-38" aria-hidden="true" tabindex="-1"></a>comp_eqc <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_basis_eq, fit_basis_eqc)</span>
+<span id="cb48-39"><a href="#cb48-39" aria-hidden="true" tabindex="-1"></a>comp_eqc<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+              Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)  
+fit_basis_eqc 10 3518.7 3553.5 14.226                                
+fit_basis_eq  11 3526.5 3557.8 24.029     5.7598       1     0.0164 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p><strong>Question: Does the Chi-square difference test support the hypothesis of including a residual covariance structure?</strong></p>
+<p>(Remember, the model with residual covariance structure is more complex than the model with just the residual variance structure, so we’re testing if making the model more complex is worth it or not.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_basis_eqc, <span class="at">std =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 290 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        23
+
+  Number of observations                           240
+  Number of missing patterns                        15
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                                14.226       9.520
+  Degrees of freedom                                10          10
+  P-value (Chi-square)                           0.163       0.484
+  Scaling correction factor                                  1.494
+    Yuan-Bentler correction (Mplus variant)                       
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  i =~                                                                  
+    psp1              1.000                               1.352    0.806
+    psp2              1.000                               1.352    0.730
+    psp3              1.000                               1.352    0.704
+    psp4              1.000                               1.352    0.699
+    psp5              1.000                               1.352    0.689
+  s =~                                                                  
+    psp1              0.000                               0.000    0.000
+    psp2              0.768    0.075   10.276    0.000    0.781    0.422
+    psp3              0.916    0.063   14.573    0.000    0.932    0.486
+    psp4              0.946    0.058   16.423    0.000    0.963    0.498
+    psp5              1.000                               1.018    0.519
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .psp1 ~~                                                               
+   .psp2       (b)    0.201    0.110    1.819    0.069    0.201    0.203
+ .psp2 ~~                                                               
+   .psp3       (b)    0.201    0.110    1.819    0.069    0.201    0.203
+ .psp3 ~~                                                               
+   .psp4       (b)    0.201    0.110    1.819    0.069    0.201    0.203
+ .psp4 ~~                                                               
+   .psp5       (b)    0.201    0.110    1.819    0.069    0.201    0.203
+ .psp1 ~~                                                               
+   .psp3       (c)    0.040    0.044    0.910    0.363    0.040    0.041
+ .psp2 ~~                                                               
+   .psp4       (c)    0.040    0.044    0.910    0.363    0.040    0.041
+ .psp3 ~~                                                               
+   .psp5       (c)    0.040    0.044    0.910    0.363    0.040    0.041
+ .psp1 ~~                                                               
+   .psp4       (d)    0.008    0.013    0.606    0.544    0.008    0.008
+ .psp2 ~~                                                               
+   .psp5       (d)    0.008    0.013    0.606    0.544    0.008    0.008
+ .psp1 ~~                                                               
+   .psp5       (e)    0.002    0.004    0.455    0.649    0.002    0.002
+  i ~~                                                                  
+    s                -0.001    0.186   -0.004    0.997   -0.001   -0.001
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+    i                 4.480    0.108   41.335    0.000    3.313    3.313
+    s                -1.014    0.110   -9.237    0.000   -0.996   -0.996
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .psp1       (a)    0.989    0.154    6.427    0.000    0.989    0.351
+   .psp2       (a)    0.989    0.154    6.427    0.000    0.989    0.289
+   .psp3       (a)    0.989    0.154    6.427    0.000    0.989    0.268
+   .psp4       (a)    0.989    0.154    6.427    0.000    0.989    0.264
+   .psp5       (a)    0.989    0.154    6.427    0.000    0.989    0.257
+    i                 1.828    0.242    7.553    0.000    1.000    1.000
+    s                 1.036    0.336    3.081    0.002    1.000    1.000
+
+Constraints:
+                                               |Slack|
+    c - (b^2)                                    0.000
+    d - (b^3)                                    0.000
+    e - (b^4)                                    0.000</code></pre>
+</div>
+</div>
+</section>
+<section id="bonus-3-parallel-growth-models" class="level2" data-number="9.10">
+<h2 data-number="9.10" class="anchored" data-anchor-id="bonus-3-parallel-growth-models"><span class="header-section-number">9.10</span> Bonus 3: Parallel Growth Models</h2>
+<p>When you collect data about multiple constructs across a period of time, you can also model the association between the two constructs using a parallel growth model. In this type of model, each construct gets its own growth model, and the intercept of one is used to predict the slope of the other model. This helps you answer the research question: Do initial levels of X predict subsequent changes in Y? We can try this out with PSP and SSA. We already know the optimal growth structure for PSP, but we still need to evaluate this question for SSA.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>lgm_linear2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*ssa1 + 1*ssa2 + 1*ssa3 + 1*ssa4 + 1*ssa5</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*ssa1 + 1*ssa2 + 2*ssa3 + 3*ssa4 + 4*ssa5</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>lgm_quad2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*ssa1 + 1*ssa2 + 1*ssa3 + 1*ssa4 + 1*ssa5</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*ssa1 + 1*ssa2 + 2*ssa3 + 3*ssa4 + 4*ssa5</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="st">q =~ 0*ssa1 + 1*ssa2 + 4*ssa3 + 9*ssa4 + 16*ssa5</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>lgm_cube2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*ssa1 + 1*ssa2 + 1*ssa3 + 1*ssa4 + 1*ssa5</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*ssa1 + 1*ssa2 + 2*ssa3 + 3*ssa4 + 4*ssa5</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="st">q =~ 0*ssa1 + 1*ssa2 + 4*ssa3 + 9*ssa4 + 16*ssa5</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="st">c =~ 0*ssa1 + 1*ssa2 + 8*ssa3 + 27*ssa4 + 64*ssa5</span></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>lgm_basis2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a><span class="st">i =~ 1*ssa1 + 1*ssa2 + 1*ssa3 + 1*ssa4 + 1*ssa5</span></span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a><span class="st">s =~ 0*ssa1 + ssa2 + ssa3 + ssa4 + 1*ssa5</span></span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the linear LGM using the growth() function</span></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>fit_linear2 <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_linear2, <span class="at">data =</span> diary, </span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>                     <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the quadratic LGM using the growth() function</span></span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>fit_quad2 <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_quad2, <span class="at">data =</span> diary, </span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>                   <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   covariance matrix of latent variables is not positive definite ; use 
+   lavInspect(fit, "cov.lv") to investigate.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the quadratic LGM using the growth() function</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>fit_cube2 <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_cube2, <span class="at">data =</span> diary, </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   covariance matrix of latent variables is not positive definite ; use 
+   lavInspect(fit, "cov.lv") to investigate.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the basis LGM using the growth() function</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>fit_basis2 <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_basis2, <span class="at">data =</span> diary, </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>comp2_lq <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_linear2, fit_quad2)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>comp2_lq<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+            Df    AIC    BIC   Chisq Chisq diff Df diff Pr(&gt;Chisq)   
+fit_quad2    6 2505.8 2554.5  8.9613                                 
+fit_linear2 10 2513.8 2548.6 25.0069     14.339       4   0.006287 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>comp2_lc <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_linear2, fit_cube2)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>comp2_lc<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+            Df    AIC    BIC   Chisq Chisq diff Df diff Pr(&gt;Chisq)   
+fit_cube2    1 2508.3 2574.5  1.5359                                 
+fit_linear2 10 2513.8 2548.6 25.0069     22.184       9   0.008313 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>comp2_lb <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_linear2, fit_basis2)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>comp2_lb<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+            Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)   
+fit_basis2   7 2504.4 2549.7  9.664                                 
+fit_linear2 10 2513.8 2548.6 25.007     15.133       3   0.001706 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>comp2_qc <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_quad2, fit_cube2)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>comp2_qc<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+          Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
+fit_cube2  1 2508.3 2574.5 1.5359                              
+fit_quad2  6 2505.8 2554.5 8.9613     7.3576       5     0.1954</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>comp2_qcb <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit_quad2, fit_cube2, fit_basis2)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>comp2_qcb<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+           Df    AIC    BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
+fit_cube2   1 2508.3 2574.5 1.5359                              
+fit_quad2   6 2505.8 2554.5 8.9613     7.3576       5     0.1954
+fit_basis2  7 2504.4 2549.7 9.6640     0.4899       1     0.4840</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at variances of linear and quadratic slope in quad model to check proportionality assumption</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(fit_quad2) <span class="sc">%&gt;%</span> <span class="fu">filter</span>((lhs <span class="sc">==</span> <span class="st">"s"</span> <span class="sc">|</span> lhs <span class="sc">==</span> <span class="st">"q"</span>) <span class="sc">&amp;</span> op <span class="sc">==</span> <span class="st">"~~"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  lhs op rhs    est    se      z pvalue ci.lower ci.upper
+1   s ~~   s  0.026 0.090  0.286  0.775   -0.150    0.202
+2   q ~~   q  0.004 0.005  0.753  0.451   -0.006    0.013
+3   s ~~   q -0.009 0.019 -0.444  0.657   -0.046    0.029</code></pre>
+</div>
+</div>
+<p>Based on the analyses and comparisons above, I select the latent basis model, as it fit the data best (based on AIC and BIC), did not have computational issues (which the quadratic and cubic model did have), and the proportionality assumption is met.</p>
+<p>Next, we can specify and estimate the parallel growth model with both constructs. Make sure you give each construct’s intercept and slope a different name! Note that I include the code and output here for illustrative purposes. This model is likely to complex to estimate with this relatively small sample, which is resulting is impossible covariance/correlation estimates (see summary output below).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>lgm_parallel <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="st">issa =~ 1*ssa1 + 1*ssa2 + 1*ssa3 + 1*ssa4 + 1*ssa5</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="st">sssa =~ 0*ssa1 + ssa2 + ssa3 + ssa4 + 1*ssa5</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="st">ipsp =~ 1*psp1 + 1*psp2 + 1*psp3 + 1*psp4 + 1*psp5</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="st">spsp =~ 0*psp1 + psp2 + psp3 + psp4 + 1*psp5</span></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="st"># covariances between pairs of intercept and slope</span></span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a><span class="st">issa ~~ ipsp</span></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="st">sssa ~~ spsp</span></span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a><span class="st"># regression paths</span></span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a><span class="st">sssa ~ ipsp</span></span>
+<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a><span class="st">spsp ~ issa</span></span>
+<span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the basis LGM using the growth() function</span></span>
+<span id="cb68-18"><a href="#cb68-18" aria-hidden="true" tabindex="-1"></a>fit_parallel <span class="ot">&lt;-</span> <span class="fu">growth</span>(lgm_parallel, <span class="at">data =</span> diary, </span>
+<span id="cb68-19"><a href="#cb68-19" aria-hidden="true" tabindex="-1"></a>                    <span class="at">estimator =</span> <span class="st">"mlr"</span>, <span class="at">missing =</span> <span class="st">"fiml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   covariance matrix of latent variables is not positive definite ; use 
+   lavInspect(fit, "cov.lv") to investigate.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_parallel, <span class="at">fit.measures =</span> T, <span class="at">std =</span> T, <span class="at">rsquare =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 60 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        28
+
+  Number of observations                           240
+  Number of missing patterns                        15
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               172.804     174.997
+  Degrees of freedom                                37          37
+  P-value (Chi-square)                           0.000       0.000
+  Scaling correction factor                                  0.987
+    Yuan-Bentler correction (Mplus variant)                       
+
+Model Test Baseline Model:
+
+  Test statistic                              1719.080    1185.277
+  Degrees of freedom                                45          45
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.450
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.919       0.879
+  Tucker-Lewis Index (TLI)                       0.901       0.853
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.920
+  Robust Tucker-Lewis Index (TLI)                            0.902
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -2857.531   -2857.531
+  Scaling correction factor                                  1.579
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)      -2771.129   -2771.129
+  Scaling correction factor                                  1.242
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                                5771.062    5771.062
+  Bayesian (BIC)                              5868.520    5868.520
+  Sample-size adjusted Bayesian (SABIC)       5779.767    5779.767
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.124       0.125
+  90 Percent confidence interval - lower         0.105       0.106
+  90 Percent confidence interval - upper         0.143       0.144
+  P-value H_0: RMSEA &lt;= 0.050                    0.000       0.000
+  P-value H_0: RMSEA &gt;= 0.080                    1.000       1.000
+                                                                  
+  Robust RMSEA                                               0.136
+  90 Percent confidence interval - lower                     0.113
+  90 Percent confidence interval - upper                     0.160
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.000
+  P-value H_0: Robust RMSEA &gt;= 0.080                         1.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.041       0.041
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  issa =~                                                               
+    ssa1              1.000                               0.851    0.847
+    ssa2              1.000                               0.851    0.813
+    ssa3              1.000                               0.851    0.798
+    ssa4              1.000                               0.851    0.810
+    ssa5              1.000                               0.851    0.766
+  sssa =~                                                               
+    ssa1              0.000                               0.000    0.000
+    ssa2              0.672    0.174    3.863    0.000    0.420    0.402
+    ssa3              0.784    0.156    5.014    0.000    0.490    0.460
+    ssa4              0.864    0.102    8.510    0.000    0.540    0.514
+    ssa5              1.000                               0.625    0.563
+  ipsp =~                                                               
+    psp1              1.000                               1.383    0.818
+    psp2              1.000                               1.383    0.750
+    psp3              1.000                               1.383    0.728
+    psp4              1.000                               1.383    0.706
+    psp5              1.000                               1.383    0.695
+  spsp =~                                                               
+    psp1              0.000                               0.000    0.000
+    psp2              0.653    0.113    5.802    0.000    0.721    0.391
+    psp3              0.827    0.110    7.493    0.000    0.913    0.480
+    psp4              0.888    0.066   13.414    0.000    0.980    0.501
+    psp5              1.000                               1.104    0.555
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  sssa ~                                                                
+    ipsp             -0.126    0.060   -2.109    0.035   -0.280   -0.280
+  spsp ~                                                                
+    issa              0.037    0.171    0.215    0.830    0.028    0.028
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  issa ~~                                                               
+    ipsp              1.012    0.121    8.366    0.000    0.859    0.859
+ .sssa ~~                                                               
+   .spsp              0.678    0.171    3.970    0.000    1.023    1.023
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+    issa              1.645    0.065   25.493    0.000    1.934    1.934
+   .sssa              0.209    0.248    0.842    0.400    0.334    0.334
+    ipsp              4.455    0.112   39.601    0.000    3.220    3.220
+   .spsp             -1.128    0.292   -3.865    0.000   -1.022   -1.022
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .ssa1              0.284    0.055    5.137    0.000    0.284    0.282
+   .ssa2              0.366    0.060    6.063    0.000    0.366    0.334
+   .ssa3              0.372    0.055    6.769    0.000    0.372    0.327
+   .ssa4              0.310    0.058    5.331    0.000    0.310    0.281
+   .ssa5              0.373    0.099    3.778    0.000    0.373    0.303
+   .psp1              0.949    0.164    5.772    0.000    0.949    0.331
+   .psp2              0.916    0.131    6.981    0.000    0.916    0.270
+   .psp3              0.806    0.175    4.606    0.000    0.806    0.223
+   .psp4              0.893    0.249    3.584    0.000    0.893    0.233
+   .psp5              0.757    0.190    3.978    0.000    0.757    0.191
+    issa              0.724    0.078    9.253    0.000    1.000    1.000
+   .sssa              0.360    0.100    3.611    0.000    0.922    0.922
+    ipsp              1.914    0.254    7.532    0.000    1.000    1.000
+   .spsp              1.218    0.286    4.256    0.000    0.999    0.999
+
+R-Square:
+                   Estimate
+    ssa1              0.718
+    ssa2              0.666
+    ssa3              0.673
+    ssa4              0.719
+    ssa5              0.697
+    psp1              0.669
+    psp2              0.730
+    psp3              0.777
+    psp4              0.767
+    psp5              0.809
+    sssa              0.078
+    spsp              0.001</code></pre>
+</div>
+</div>
+<p>This model does not fit well (e.g., CFI &lt; .95). Local fit results (see below) indicate that the model does not adequately represent the associations between <code>psp2</code> and <code>ssa</code> and <code>ssa5</code>. Given the good fit of each individual growth model, there appears to be something in the interplay between the two constructs that our parallel growth model is not capturing. Alternative models such as a random-intercept cross-lagged panel model could be explored.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit_parallel, <span class="at">type =</span> <span class="st">"cor.bollen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$type
+[1] "cor.bollen"
+
+$cov
+       ssa1   ssa2   ssa3   ssa4   ssa5   psp1   psp2   psp3   psp4   psp5
+ssa1  0.000                                                               
+ssa2  0.003  0.000                                                        
+ssa3  0.003  0.055  0.000                                                 
+ssa4  0.012  0.004 -0.018  0.000                                          
+ssa5  0.022 -0.032 -0.007  0.015  0.000                                   
+psp1 -0.010 -0.007  0.001  0.001 -0.055  0.000                            
+psp2 -0.006  0.129 -0.008 -0.051 -0.105  0.026  0.000                     
+psp3  0.034  0.038  0.098 -0.051 -0.077 -0.004  0.043  0.000              
+psp4  0.028 -0.016 -0.036  0.041 -0.040 -0.014 -0.014 -0.022  0.000       
+psp5 -0.005 -0.048 -0.030 -0.008  0.070 -0.040 -0.062 -0.019  0.029  0.000
+
+$mean
+  ssa1   ssa2   ssa3   ssa4   ssa5   psp1   psp2   psp3   psp4   psp5 
+ 0.006 -0.011  0.003 -0.034  0.040  0.016 -0.033 -0.022  0.005  0.052 </code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./sam.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Structural after Measurement Models</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./measurementinvariance_ord.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Ordinal Indicators</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">Copyright 2025, Sonja D. Winter</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

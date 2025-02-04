@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ESCP 9710 R Labs - 7&nbsp; Measurement Invariance Testing with Continuous Indicators</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./sam.html" rel="next">
+<link href="./sem.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ESCP 9710 R Labs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/people.html" rel="" target="">
+ <span class="menu-text">People</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/talks.html" rel="" target="">
+ <span class="menu-text">Talks</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-r-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">R Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-r-labs">    
+        <li>
+    <a class="dropdown-item" href="https://winterstat.github.io/escp8082_rlabs" rel="" target="">
+ <span class="dropdown-text">ESCP 8082 Foundations of Measurement</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.twitter.com/winterstat" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.github.com/winterstat" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./measurementinvariance_cont.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Continuous Indicators</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gettingstarted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pathanalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Path Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./indirecteffects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Indirect Effects</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelevaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Model Evaluation and Comparison</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confirmatoryfactoranalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Confirmatory Factor Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structural Equation Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measurementinvariance_cont.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Continuous Indicators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Structural after Measurement Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./latentgrowthmodel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Latent Growth Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measurementinvariance_ord.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Ordinal Indicators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lpa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Latent Profile Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Latent Class Analysis</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#loading-r-packages" id="toc-loading-r-packages" class="nav-link active" data-scroll-target="#loading-r-packages"><span class="header-section-number">7.1</span> Loading R packages</a></li>
+  <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data"><span class="header-section-number">7.2</span> Loading Data</a></li>
+  <li><a href="#statistical-decision-criteria" id="toc-statistical-decision-criteria" class="nav-link" data-scroll-target="#statistical-decision-criteria"><span class="header-section-number">7.3</span> Statistical Decision Criteria</a></li>
+  <li><a href="#configural-invariance" id="toc-configural-invariance" class="nav-link" data-scroll-target="#configural-invariance"><span class="header-section-number">7.4</span> Configural Invariance</a>
+  <ul class="collapse">
+  <li><a href="#parameter-estimate-interpretation" id="toc-parameter-estimate-interpretation" class="nav-link" data-scroll-target="#parameter-estimate-interpretation">Parameter Estimate Interpretation</a></li>
+  </ul></li>
+  <li><a href="#weak-metric-invariance" id="toc-weak-metric-invariance" class="nav-link" data-scroll-target="#weak-metric-invariance"><span class="header-section-number">7.5</span> Weak (Metric) Invariance</a>
+  <ul class="collapse">
+  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison">Model Comparison</a></li>
+  <li><a href="#parameter-estimate-interpretation-1" id="toc-parameter-estimate-interpretation-1" class="nav-link" data-scroll-target="#parameter-estimate-interpretation-1">Parameter Estimate Interpretation</a></li>
+  </ul></li>
+  <li><a href="#strong-scalar-invariance" id="toc-strong-scalar-invariance" class="nav-link" data-scroll-target="#strong-scalar-invariance"><span class="header-section-number">7.6</span> Strong (Scalar) Invariance</a>
+  <ul class="collapse">
+  <li><a href="#model-comparison-1" id="toc-model-comparison-1" class="nav-link" data-scroll-target="#model-comparison-1">Model Comparison</a></li>
+  <li><a href="#local-fit-comparison" id="toc-local-fit-comparison" class="nav-link" data-scroll-target="#local-fit-comparison">Local Fit Comparison</a></li>
+  </ul></li>
+  <li><a href="#partial-strong-invariance-round-1" id="toc-partial-strong-invariance-round-1" class="nav-link" data-scroll-target="#partial-strong-invariance-round-1"><span class="header-section-number">7.7</span> Partial Strong Invariance (Round 1)</a>
+  <ul class="collapse">
+  <li><a href="#model-comparison-2" id="toc-model-comparison-2" class="nav-link" data-scroll-target="#model-comparison-2">Model Comparison</a></li>
+  <li><a href="#local-fit-evaluation" id="toc-local-fit-evaluation" class="nav-link" data-scroll-target="#local-fit-evaluation">Local Fit Evaluation</a></li>
+  </ul></li>
+  <li><a href="#partial-strong-invariance-round-2" id="toc-partial-strong-invariance-round-2" class="nav-link" data-scroll-target="#partial-strong-invariance-round-2"><span class="header-section-number">7.8</span> Partial Strong Invariance (Round 2)</a>
+  <ul class="collapse">
+  <li><a href="#local-fit-evaluation-1" id="toc-local-fit-evaluation-1" class="nav-link" data-scroll-target="#local-fit-evaluation-1">Local Fit Evaluation</a></li>
+  <li><a href="#cfi-and-rmsea-comparison" id="toc-cfi-and-rmsea-comparison" class="nav-link" data-scroll-target="#cfi-and-rmsea-comparison">CFI and RMSEA Comparison</a></li>
+  </ul></li>
+  <li><a href="#parameter-comparison-across-groups" id="toc-parameter-comparison-across-groups" class="nav-link" data-scroll-target="#parameter-comparison-across-groups"><span class="header-section-number">7.9</span> Parameter Comparison Across Groups</a>
+  <ul class="collapse">
+  <li><a href="#factor-variances" id="toc-factor-variances" class="nav-link" data-scroll-target="#factor-variances">Factor Variances</a></li>
+  <li><a href="#factor-covariances" id="toc-factor-covariances" class="nav-link" data-scroll-target="#factor-covariances">Factor Covariances</a></li>
+  <li><a href="#factor-means" id="toc-factor-means" class="nav-link" data-scroll-target="#factor-means">Factor Means</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">7.10</span> Conclusion</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.11</span> Summary</a></li>
+  <li><a href="#bonus-compare-findings-to-mean-difference-based-on-observed-mean-scores" id="toc-bonus-compare-findings-to-mean-difference-based-on-observed-mean-scores" class="nav-link" data-scroll-target="#bonus-compare-findings-to-mean-difference-based-on-observed-mean-scores"><span class="header-section-number">7.12</span> Bonus: Compare Findings to Mean Difference Based on Observed Mean Scores</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Continuous Indicators</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can download the R code used in this lab by right-clicking this link and selecting “Save Link As…” in the drop-down menu: <a href="https://winterstat.github.io/escp9710_rlabs/data/measurementinvariance_cont.R">measurementinvariance_cont.R</a></p>
+</div>
+</div>
+<section id="loading-r-packages" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="loading-r-packages"><span class="header-section-number">7.1</span> Loading R packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semTools)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semhelpinghands)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="loading-data" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="loading-data"><span class="header-section-number">7.2</span> Loading Data</h2>
+<p>Load the data into your environment. For this lab we will use a dataset of N = 1000 individuals who completed the Depression-Anxiety-Stress Scales (DASS-21). For this lab, we will focus on the Anxiety and Stress subscales.</p>
+<p>You can download the data by right-clicking this link and selecting “Save Link As…” in the drop-down menu: <a href="https://winterstat.github.io/escp9710_rlabs/data/DASS21.csv">data/DASS21.csv</a>. Make sure to save it in the folder you are using for this class.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DASS21 <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="at">file =</span> <span class="st">"data/DASS21.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>DASS21<span class="sc">$</span>engnat <span class="ot">&lt;-</span> <span class="fu">factor</span>(DASS21<span class="sc">$</span>engnat, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"EnglishNative"</span>, <span class="st">"ELL"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will see if there is measurement invariance across participants whose native language is English (1) versus participants who have a different native language/are ELL (2). The table below shows the sample size in each group:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(DASS21<span class="sc">$</span>engnat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+EnglishNative           ELL 
+          500           500 </code></pre>
+</div>
+</div>
+<p>Here is an overview of the questions on the Anxiety subscale:</p>
+<ul>
+<li>q2: I was aware of dryness in my mouth</li>
+<li>q4: I experienced breathing difficulty (eg, excessively rapid breathing, breathlessness in the absence of physical exertion)</li>
+<li>q7: I experienced trembling (e.g., in the hands)</li>
+<li>q9: I was worried about situations in which I might panic and make a fool of myself.</li>
+<li>q15: I felt I was close to panic.</li>
+<li>q19: I was aware of the action of my heart in the absence of physical exertion (eg, sense of heart rate increase, heart missing a beat).</li>
+<li>q20: I felt scared without any good reason.</li>
+</ul>
+<p>And the questions on the Stress subscale:</p>
+<ul>
+<li>q1: I found it hard to wind down.</li>
+<li>q6: I tended to over-react to situations.</li>
+<li>q8: I felt that I was using a lot of nervous energy.</li>
+<li>q11: I found myself getting agitated.</li>
+<li>q12: I found it difficult to relax.</li>
+<li>q14: I was intolerant of anything that kept me from getting on with what I was doing.</li>
+<li>q18: I felt that I was rather touchy.</li>
+</ul>
+</section>
+<section id="statistical-decision-criteria" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="statistical-decision-criteria"><span class="header-section-number">7.3</span> Statistical Decision Criteria</h2>
+<p>For this lab, I will use the following statistical decision criteria for the model comparison tests between levels of invariance. These are based on the knowledge that our samples are relatively large (N = 500 per group), and are informed by the textbook and Chen (2007):</p>
+<ul>
+<li>Look at Chi-square Difference test.
+<ul>
+<li>If not significant: retain next level of invariance</li>
+<li>If significant, look at other fit information</li>
+</ul></li>
+<li>Are there any patterns of problematic correlation residuals &gt; |.10|? Reject next level of invariance, test partial invariance</li>
+<li>Does CFI decrease ≤ 0.010 or does RMSEA increase by ≥ 0.015? Reject next level of invariance, test partial invariance</li>
+</ul>
+</section>
+<section id="configural-invariance" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="configural-invariance"><span class="header-section-number">7.4</span> Configural Invariance</h2>
+<p>We will specify a two-factor CFA using lavaan syntax. Based on previous research, this two-factor model already includes residual covariances between two pairs of items. What these items have in common is that they focus on physical symptoms of anxiety, which causes them to share more commmon variance with each other (especially with q4) than with the other anxiety items.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cfa_config <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">anxiety =~ q2 + q4 + q7 + q9 + q15 + q19 + q20</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">stress =~ q1 + q6 + q8 + q11 + q12 + q14 + q18</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">q4 ~~ q19</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">q4 ~~ q7</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We are going to use a function from the <code>semTools</code> package that will help us set the scale for our latent factors and apply the equality constraint labels in later steps of the measurement invariance testing procedure. This saves us A LOT of typing, especially when moving towards partial invariance. As all indicators are responded to on the same response scale, will use the effect-coding method for scaling the latent factors. This will result in latent factors that have the same mean and variance as the average indicator.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fit.config <span class="ot">&lt;-</span> <span class="fu">measEq.syntax</span>(<span class="at">configural.model =</span> cfa_config, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> DASS21, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">group =</span> <span class="st">"engnat"</span>, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">ID.fac =</span> <span class="st">"effects"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">return.fit =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">estimator =</span> <span class="st">"mlr"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the model syntax, so you can</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># see what semTools is helping us do:</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">as.character</span>(fit.config<span class="sc">@</span>call<span class="sc">$</span>model))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>## LOADINGS:
+
+anxiety =~ c(NA, NA)*q2 + c(lambda.1_1.g1, lambda.1_1.g2)*q2
+anxiety =~ c(NA, NA)*q4 + c(lambda.2_1.g1, lambda.2_1.g2)*q4
+anxiety =~ c(NA, NA)*q7 + c(lambda.3_1.g1, lambda.3_1.g2)*q7
+anxiety =~ c(NA, NA)*q9 + c(lambda.4_1.g1, lambda.4_1.g2)*q9
+anxiety =~ c(NA, NA)*q15 + c(lambda.5_1.g1, lambda.5_1.g2)*q15
+anxiety =~ c(NA, NA)*q19 + c(lambda.6_1.g1, lambda.6_1.g2)*q19
+anxiety =~ c(NA, NA)*q20 + c(lambda.7_1.g1, lambda.7_1.g2)*q20
+stress =~ c(NA, NA)*q1 + c(lambda.8_2.g1, lambda.8_2.g2)*q1
+stress =~ c(NA, NA)*q6 + c(lambda.9_2.g1, lambda.9_2.g2)*q6
+stress =~ c(NA, NA)*q8 + c(lambda.10_2.g1, lambda.10_2.g2)*q8
+stress =~ c(NA, NA)*q11 + c(lambda.11_2.g1, lambda.11_2.g2)*q11
+stress =~ c(NA, NA)*q12 + c(lambda.12_2.g1, lambda.12_2.g2)*q12
+stress =~ c(NA, NA)*q14 + c(lambda.13_2.g1, lambda.13_2.g2)*q14
+stress =~ c(NA, NA)*q18 + c(lambda.14_2.g1, lambda.14_2.g2)*q18
+
+## INTERCEPTS:
+
+q2 ~ c(NA, NA)*1 + c(nu.1.g1, nu.1.g2)*1
+q4 ~ c(NA, NA)*1 + c(nu.2.g1, nu.2.g2)*1
+q7 ~ c(NA, NA)*1 + c(nu.3.g1, nu.3.g2)*1
+q9 ~ c(NA, NA)*1 + c(nu.4.g1, nu.4.g2)*1
+q15 ~ c(NA, NA)*1 + c(nu.5.g1, nu.5.g2)*1
+q19 ~ c(NA, NA)*1 + c(nu.6.g1, nu.6.g2)*1
+q20 ~ c(NA, NA)*1 + c(nu.7.g1, nu.7.g2)*1
+q1 ~ c(NA, NA)*1 + c(nu.8.g1, nu.8.g2)*1
+q6 ~ c(NA, NA)*1 + c(nu.9.g1, nu.9.g2)*1
+q8 ~ c(NA, NA)*1 + c(nu.10.g1, nu.10.g2)*1
+q11 ~ c(NA, NA)*1 + c(nu.11.g1, nu.11.g2)*1
+q12 ~ c(NA, NA)*1 + c(nu.12.g1, nu.12.g2)*1
+q14 ~ c(NA, NA)*1 + c(nu.13.g1, nu.13.g2)*1
+q18 ~ c(NA, NA)*1 + c(nu.14.g1, nu.14.g2)*1
+
+## UNIQUE-FACTOR VARIANCES:
+
+q2 ~~ c(NA, NA)*q2 + c(theta.1_1.g1, theta.1_1.g2)*q2
+q4 ~~ c(NA, NA)*q4 + c(theta.2_2.g1, theta.2_2.g2)*q4
+q7 ~~ c(NA, NA)*q7 + c(theta.3_3.g1, theta.3_3.g2)*q7
+q9 ~~ c(NA, NA)*q9 + c(theta.4_4.g1, theta.4_4.g2)*q9
+q15 ~~ c(NA, NA)*q15 + c(theta.5_5.g1, theta.5_5.g2)*q15
+q19 ~~ c(NA, NA)*q19 + c(theta.6_6.g1, theta.6_6.g2)*q19
+q20 ~~ c(NA, NA)*q20 + c(theta.7_7.g1, theta.7_7.g2)*q20
+q1 ~~ c(NA, NA)*q1 + c(theta.8_8.g1, theta.8_8.g2)*q1
+q6 ~~ c(NA, NA)*q6 + c(theta.9_9.g1, theta.9_9.g2)*q6
+q8 ~~ c(NA, NA)*q8 + c(theta.10_10.g1, theta.10_10.g2)*q8
+q11 ~~ c(NA, NA)*q11 + c(theta.11_11.g1, theta.11_11.g2)*q11
+q12 ~~ c(NA, NA)*q12 + c(theta.12_12.g1, theta.12_12.g2)*q12
+q14 ~~ c(NA, NA)*q14 + c(theta.13_13.g1, theta.13_13.g2)*q14
+q18 ~~ c(NA, NA)*q18 + c(theta.14_14.g1, theta.14_14.g2)*q18
+
+## UNIQUE-FACTOR COVARIANCES:
+
+q4 ~~ c(NA, NA)*q7 + c(theta.3_2.g1, theta.3_2.g2)*q7
+q4 ~~ c(NA, NA)*q19 + c(theta.6_2.g1, theta.6_2.g2)*q19
+
+## LATENT MEANS/INTERCEPTS:
+
+anxiety ~ c(NA, NA)*1 + c(alpha.1.g1, alpha.1.g2)*1
+stress ~ c(NA, NA)*1 + c(alpha.2.g1, alpha.2.g2)*1
+
+## COMMON-FACTOR VARIANCES:
+
+anxiety ~~ c(NA, NA)*anxiety + c(psi.1_1.g1, psi.1_1.g2)*anxiety
+stress ~~ c(NA, NA)*stress + c(psi.2_2.g1, psi.2_2.g2)*stress
+
+## COMMON-FACTOR COVARIANCES:
+
+anxiety ~~ c(NA, NA)*stress + c(psi.2_1.g1, psi.2_1.g2)*stress
+
+## MODEL CONSTRAINTS:
+
+lambda.1_1.g1 == 7 - lambda.2_1.g1 - lambda.3_1.g1 - lambda.4_1.g1 - lambda.5_1.g1 - lambda.6_1.g1 - lambda.7_1.g1
+lambda.1_1.g2 == 7 - lambda.2_1.g2 - lambda.3_1.g2 - lambda.4_1.g2 - lambda.5_1.g2 - lambda.6_1.g2 - lambda.7_1.g2
+nu.1.g1 == 7 - nu.2.g1 - nu.3.g1 - nu.4.g1 - nu.5.g1 - nu.6.g1 - nu.7.g1
+nu.1.g2 == 7 - nu.2.g2 - nu.3.g2 - nu.4.g2 - nu.5.g2 - nu.6.g2 - nu.7.g2
+lambda.8_2.g1 == 7 - lambda.9_2.g1 - lambda.10_2.g1 - lambda.11_2.g1 - lambda.12_2.g1 - lambda.13_2.g1 - lambda.14_2.g1
+lambda.8_2.g2 == 7 - lambda.9_2.g2 - lambda.10_2.g2 - lambda.11_2.g2 - lambda.12_2.g2 - lambda.13_2.g2 - lambda.14_2.g2
+nu.8.g1 == 7 - nu.9.g1 - nu.10.g1 - nu.11.g1 - nu.12.g1 - nu.13.g1 - nu.14.g1
+nu.8.g2 == 7 - nu.9.g2 - nu.10.g2 - nu.11.g2 - nu.12.g2 - nu.13.g2 - nu.14.g2</code></pre>
+</div>
+</div>
+<p>To see if the configural model is tenable, we will first inspect indices of global (exact and approximate) fit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.config, <span class="at">fit.measures =</span> T, <span class="at">estimates =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 55 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        98
+  Number of equality constraints                     8
+
+  Number of observations per group:                   
+    EnglishNative                                  500
+    ELL                                            500
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               373.938     315.353
+  Degrees of freedom                               148         148
+  P-value (Chi-square)                           0.000       0.000
+  Scaling correction factor                                  1.186
+    Yuan-Bentler correction (Mplus variant)                       
+  Test statistic for each group:
+    EnglishNative                              189.027     189.027
+    ELL                                        126.326     126.326
+
+Model Test Baseline Model:
+
+  Test statistic                              6539.400    5341.435
+  Degrees of freedom                               182         182
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.224
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.964       0.968
+  Tucker-Lewis Index (TLI)                       0.956       0.960
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.969
+  Robust Tucker-Lewis Index (TLI)                            0.961
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -17763.167  -17763.167
+  Scaling correction factor                                  0.893
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -17576.198  -17576.198
+  Scaling correction factor                                  1.105
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               35706.333   35706.333
+  Bayesian (BIC)                             36148.031   36148.031
+  Sample-size adjusted Bayesian (SABIC)      35862.186   35862.186
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.055       0.048
+  90 Percent confidence interval - lower         0.048       0.041
+  90 Percent confidence interval - upper         0.062       0.054
+  P-value H_0: RMSEA &lt;= 0.050                    0.104       0.719
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.052
+  90 Percent confidence interval - lower                     0.044
+  90 Percent confidence interval - upper                     0.060
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.345
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.032       0.032</code></pre>
+</div>
+</div>
+<p>The Chi-square test is significant, but the approximate fit indices look OK. Our sample is relatively large, so we will look at the local fit indices to see if any remaining misfit is trivial, or if there are major issues:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit.config, <span class="at">type =</span> <span class="st">"cor.bollen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$EnglishNative
+$EnglishNative$type
+[1] "cor.bollen"
+
+$EnglishNative$cov
+        q2     q4     q7     q9    q15    q19    q20     q1     q6     q8
+q2   0.000                                                               
+q4   0.081  0.000                                                        
+q7   0.059  0.020  0.000                                                 
+q9  -0.023 -0.056  0.015  0.000                                          
+q15 -0.053  0.019 -0.011 -0.004  0.000                                   
+q19  0.057  0.003  0.076 -0.037 -0.026  0.000                            
+q20 -0.051  0.023 -0.031  0.039  0.008 -0.023  0.000                     
+q1  -0.010 -0.050 -0.036 -0.018  0.003  0.019 -0.014  0.000              
+q6   0.001 -0.044 -0.035  0.040  0.011 -0.008 -0.023 -0.033  0.000       
+q8   0.032  0.019  0.103  0.060  0.092  0.045  0.076 -0.028 -0.024  0.000
+q11  0.018 -0.051 -0.073  0.009 -0.024 -0.023 -0.005 -0.012  0.056 -0.034
+q12 -0.023 -0.012 -0.050 -0.035  0.022 -0.024 -0.043  0.092 -0.013 -0.006
+q14  0.065 -0.030 -0.001 -0.013 -0.031  0.033 -0.017  0.031  0.001 -0.089
+q18  0.051  0.021  0.002  0.019 -0.048  0.016 -0.003 -0.037  0.054 -0.021
+       q11    q12    q14    q18
+q2                             
+q4                             
+q7                             
+q9                             
+q15                            
+q19                            
+q20                            
+q1                             
+q6                             
+q8                             
+q11  0.000                     
+q12 -0.017  0.000              
+q14  0.096 -0.027  0.000       
+q18  0.006 -0.011  0.036  0.000
+
+$EnglishNative$mean
+ q2  q4  q7  q9 q15 q19 q20  q1  q6  q8 q11 q12 q14 q18 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+
+
+$ELL
+$ELL$type
+[1] "cor.bollen"
+
+$ELL$cov
+        q2     q4     q7     q9    q15    q19    q20     q1     q6     q8
+q2   0.000                                                               
+q4   0.076  0.000                                                        
+q7   0.035  0.009  0.000                                                 
+q9  -0.015 -0.032 -0.027  0.000                                          
+q15 -0.040  0.017  0.011  0.035  0.000                                   
+q19  0.030  0.007  0.041 -0.073  0.008  0.000                            
+q20  0.002 -0.048 -0.017  0.017  0.009 -0.040  0.000                     
+q1  -0.020 -0.011 -0.029 -0.055 -0.045  0.007 -0.023  0.000              
+q6   0.003  0.001 -0.021 -0.005 -0.019 -0.013  0.004  0.038  0.000       
+q8   0.037  0.038  0.078  0.077  0.066  0.069  0.037 -0.055 -0.047  0.000
+q11  0.030 -0.021 -0.058 -0.008 -0.016  0.018  0.028  0.032 -0.024 -0.014
+q12 -0.034 -0.001 -0.028 -0.023 -0.022  0.037  0.001  0.066 -0.012 -0.008
+q14 -0.020 -0.002 -0.005  0.002 -0.053 -0.020 -0.009  0.027  0.032 -0.006
+q18  0.015  0.006  0.019  0.023 -0.047  0.044  0.020 -0.036  0.086 -0.036
+       q11    q12    q14    q18
+q2                             
+q4                             
+q7                             
+q9                             
+q15                            
+q19                            
+q20                            
+q1                             
+q6                             
+q8                             
+q11  0.000                     
+q12 -0.001  0.000              
+q14 -0.002 -0.001  0.000       
+q18  0.025 -0.034  0.004  0.000
+
+$ELL$mean
+ q2  q4  q7  q9 q15 q19 q20  q1  q6  q8 q11 q12 q14 q18 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0 </code></pre>
+</div>
+</div>
+<p>Overall, the correlation residuals look good. Only the correlation residual of <code>q7</code> and <code>q8</code> was &gt; .1 (it was .103) in the English native speaker group. There is no a priori justification why these two items, which load onto different factors, share an omitted cause (that could be accommodated via a residual covariance). In addition, the correlation residual was relatively close to .1, indicating that adding the residual covariance would likely only have a small impact on global model fit. Based on these results, we will retain the configural invariance model, and examine weak (metric) invariance.</p>
+<section id="parameter-estimate-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="parameter-estimate-interpretation">Parameter Estimate Interpretation</h3>
+<p>Using the function below, we can compare the estimates across groups and see that all the measurement-related parameters are still varying across groups (as we have not included any equality constraints yet).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_groups</span>(fit.config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       lhs op     rhs est_EnglishNative est_ELL
+1  anxiety =~     q15             1.183   1.207
+2  anxiety =~     q19             0.902   0.964
+3  anxiety =~      q2             0.781   0.817
+4  anxiety =~     q20             1.102   1.162
+5  anxiety =~      q4             1.015   0.904
+6  anxiety =~      q7             0.935   0.906
+7  anxiety =~      q9             1.082   1.041
+8   stress =~      q1             1.063   0.996
+9   stress =~     q11             0.997   1.011
+10  stress =~     q12             1.097   1.090
+11  stress =~     q14             0.834   0.927
+12  stress =~     q18             0.893   0.819
+13  stress =~      q6             1.037   1.052
+14  stress =~      q8             1.081   1.105
+15 anxiety ~~ anxiety             0.560   0.494
+16 anxiety ~~  stress             0.508   0.454
+17      q1 ~~      q1             0.503   0.434
+18     q11 ~~     q11             0.541   0.501
+19     q12 ~~     q12             0.483   0.499
+20     q14 ~~     q14             0.695   0.568
+21     q15 ~~     q15             0.400   0.403
+22     q18 ~~     q18             0.804   0.749
+23     q19 ~~     q19             0.817   0.755
+24      q2 ~~      q2             1.036   0.886
+25     q20 ~~     q20             0.616   0.486
+26      q4 ~~     q19             0.210   0.182
+27      q4 ~~      q4             0.636   0.672
+28      q4 ~~      q7             0.028   0.136
+29      q6 ~~      q6             0.538   0.562
+30      q7 ~~      q7             0.649   0.684
+31      q8 ~~      q8             0.571   0.476
+32      q9 ~~      q9             0.660   0.604
+33  stress ~~  stress             0.569   0.505
+34 anxiety ~1                     1.308   1.180
+35      q1 ~1                     0.880   0.886
+36     q11 ~1                     1.135   0.922
+37     q12 ~1                     0.937   0.905
+38     q14 ~1                     1.043   1.029
+39     q15 ~1                     0.879   0.662
+40     q18 ~1                     1.094   1.439
+41     q19 ~1                     1.117   1.047
+42      q2 ~1                     1.121   1.312
+43     q20 ~1                     0.925   0.900
+44      q4 ~1                     0.764   0.836
+45      q6 ~1                     1.038   1.005
+46      q7 ~1                     0.869   0.851
+47      q8 ~1                     0.874   0.814
+48      q9 ~1                     1.324   1.392
+49  stress ~1                     1.549   1.351</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="weak-metric-invariance" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="weak-metric-invariance"><span class="header-section-number">7.5</span> Weak (Metric) Invariance</h2>
+<p>This is where the <code>semTools</code> function really comes in handy. All we need to do to estimate the Weak Invariance model is change the arguments of the function a little bit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit.weak <span class="ot">&lt;-</span> <span class="fu">measEq.syntax</span>(<span class="at">configural.model =</span> cfa_config, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data =</span> DASS21, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">group =</span> <span class="st">"engnat"</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ID.fac =</span> <span class="st">"effects"</span>, </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">return.fit =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">estimator =</span> <span class="st">"mlr"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">group.equal =</span> <span class="st">"loadings"</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the model syntax, so you can</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># see what semTools is helping us do:</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># cat(as.character(fit.weak@call$model))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the model syntax above (if you remove the # and run the line of code), you can see that each factor loading now has the same label across the two groups, ensuring that they are constraint to be equal.</p>
+<section id="model-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="model-comparison">Model Comparison</h3>
+<p>To test if we can retain the Weak Invariance model, we compare its fit to that of the Configural Invariance model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>comp_12 <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit.config, fit.weak)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(comp_12)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+            Df   AIC   BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
+fit.config 148 35706 36148 373.94                              
+fit.weak   160 35691 36074 382.85     11.021      12     0.5271
+
+####################### Model Fit Indices ###########################
+           chisq.scaled df.scaled pvalue.scaled rmsea.robust cfi.robust
+fit.config     315.353†       148          .000        .052       .969 
+fit.weak       330.756        160          .000        .050†      .969†
+           tli.robust  srmr        aic        bic
+fit.config      .961  .032† 35706.333  36148.031 
+fit.weak        .964† .036  35691.248† 36074.053†
+
+################## Differences in Fit Indices #######################
+                      df.scaled rmsea.robust cfi.robust tli.robust  srmr
+fit.weak - fit.config        12       -0.002          0      0.003 0.004
+                          aic     bic
+fit.weak - fit.config -15.086 -73.979</code></pre>
+</div>
+</div>
+<p><strong>What does the Chi-square difference test result tell us?</strong></p>
+</section>
+<section id="parameter-estimate-interpretation-1" class="level3">
+<h3 class="anchored" data-anchor-id="parameter-estimate-interpretation-1">Parameter Estimate Interpretation</h3>
+<p>Using the function below, we can compare the estimates across groups and see that all the loadings are now exactly the same (because we constrained them to be). Other parameters are still varying across groups.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_groups</span>(fit.weak)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       lhs op     rhs est_EnglishNative est_ELL
+1  anxiety =~     q15             1.192   1.192
+2  anxiety =~     q19             0.930   0.930
+3  anxiety =~      q2             0.798   0.798
+4  anxiety =~     q20             1.130   1.130
+5  anxiety =~      q4             0.964   0.964
+6  anxiety =~      q7             0.925   0.925
+7  anxiety =~      q9             1.061   1.061
+8   stress =~      q1             1.028   1.028
+9   stress =~     q11             1.004   1.004
+10  stress =~     q12             1.093   1.093
+11  stress =~     q14             0.882   0.882
+12  stress =~     q18             0.857   0.857
+13  stress =~      q6             1.044   1.044
+14  stress =~      q8             1.093   1.093
+15 anxiety ~~ anxiety             0.559   0.499
+16 anxiety ~~  stress             0.508   0.456
+17      q1 ~~      q1             0.508   0.430
+18     q11 ~~     q11             0.539   0.502
+19     q12 ~~     q12             0.486   0.498
+20     q14 ~~     q14             0.692   0.574
+21     q15 ~~     q15             0.400   0.403
+22     q18 ~~     q18             0.808   0.747
+23     q19 ~~     q19             0.814   0.758
+24      q2 ~~      q2             1.036   0.886
+25     q20 ~~     q20             0.613   0.491
+26      q4 ~~     q19             0.211   0.179
+27      q4 ~~      q4             0.645   0.666
+28      q4 ~~      q7             0.033   0.132
+29      q6 ~~      q6             0.537   0.562
+30      q7 ~~      q7             0.651   0.681
+31      q8 ~~      q8             0.570   0.479
+32      q9 ~~      q9             0.663   0.601
+33  stress ~~  stress             0.569   0.505
+34 anxiety ~1                     1.308   1.180
+35      q1 ~1                     0.934   0.842
+36     q11 ~1                     1.123   0.931
+37     q12 ~1                     0.944   0.901
+38     q14 ~1                     0.968   1.090
+39     q15 ~1                     0.867   0.679
+40     q18 ~1                     1.149   1.388
+41     q19 ~1                     1.080   1.087
+42      q2 ~1                     1.099   1.335
+43     q20 ~1                     0.888   0.937
+44      q4 ~1                     0.831   0.765
+45      q6 ~1                     1.027   1.015
+46      q7 ~1                     0.882   0.828
+47      q8 ~1                     0.856   0.831
+48      q9 ~1                     1.353   1.369
+49  stress ~1                     1.549   1.351</code></pre>
+</div>
+</div>
+<p>When we retain the Weak Invariance model, we can conclude that the measured concepts (Anxiety and Stress) have the same meaning across groups, because the item-factor associations can be considered equivalent (the same amount of common variance is extracted across groups).</p>
+</section>
+</section>
+<section id="strong-scalar-invariance" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="strong-scalar-invariance"><span class="header-section-number">7.6</span> Strong (Scalar) Invariance</h2>
+<p>Again, all we need to do to estimate the Weak Invariance model is change the arguments of the function a little bit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fit.strong <span class="ot">&lt;-</span> <span class="fu">measEq.syntax</span>(<span class="at">configural.model =</span> cfa_config, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> DASS21, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">group =</span> <span class="st">"engnat"</span>, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">ID.fac =</span> <span class="st">"effects"</span>, </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">return.fit =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">estimator =</span> <span class="st">"mlr"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>, <span class="st">"intercepts"</span>))</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the model syntax, so you can</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># see what semTools is helping us do:</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># cat(as.character(fit.strong@call$model))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="model-comparison-1" class="level3">
+<h3 class="anchored" data-anchor-id="model-comparison-1">Model Comparison</h3>
+<p>To test if we can retain the Strong Invariance model, we compare its fit to that of the Weak Invariance model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>comp_23 <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit.weak, fit.strong)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(comp_23)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+            Df   AIC   BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)    
+fit.weak   160 35691 36074 382.85                                  
+fit.strong 172 35748 36072 463.60     81.276      12  2.356e-12 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+####################### Model Fit Indices ###########################
+           chisq.scaled df.scaled pvalue.scaled rmsea.robust cfi.robust
+fit.weak       330.756†       160          .000        .050†      .969†
+fit.strong     404.514        172          .000        .056       .958 
+           tli.robust  srmr        aic        bic
+fit.weak        .964† .036† 35691.248† 36074.053 
+fit.strong      .955  .042  35747.993  36071.905†
+
+################## Differences in Fit Indices #######################
+                      df.scaled rmsea.robust cfi.robust tli.robust  srmr    aic
+fit.strong - fit.weak        12        0.006     -0.011     -0.009 0.006 56.745
+                         bic
+fit.strong - fit.weak -2.148</code></pre>
+</div>
+</div>
+<p><strong>What does the Chi-square difference test result tell us?</strong></p>
+</section>
+<section id="local-fit-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="local-fit-comparison">Local Fit Comparison</h3>
+<p>Since the fit worsened significantly when testing Strong Invariance, we will focus on problematic residuals in the mean vectors, since constraining the intercepts will affect model fit by changing the model implied means.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit.strong, <span class="at">type =</span> <span class="st">"cor.bollen"</span>)<span class="sc">$</span>EnglishNative<span class="sc">$</span>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    q2     q4     q7     q9    q15    q19    q20     q1     q6     q8    q11 
+-0.119  0.014  0.009 -0.023  0.067 -0.017 -0.042  0.032 -0.006 -0.002  0.080 
+   q12    q14    q18 
+ 0.006 -0.074 -0.118 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit.strong, <span class="at">type =</span> <span class="st">"cor.bollen"</span>)<span class="sc">$</span>ELL<span class="sc">$</span>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    q2     q4     q7     q9    q15    q19    q20     q1     q6     q8    q11 
+ 0.108 -0.018 -0.012  0.022 -0.069  0.017  0.035 -0.030  0.007  0.002 -0.078 
+   q12    q14    q18 
+-0.007  0.064  0.116 </code></pre>
+</div>
+</div>
+<p>You will notice that mean residuals for a specific indicator are negative for one group and positive for the other. When we constrain intercepts to be equal across groups, the estimate tends to find a compromise between the two group intercepts. Thus, one group will always have an observed mean that is above that estimate while the other has an observed mean that is below that estimate.</p>
+<p><strong>Which intercepts appear to be different across groups?</strong></p>
+</section>
+</section>
+<section id="partial-strong-invariance-round-1" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="partial-strong-invariance-round-1"><span class="header-section-number">7.7</span> Partial Strong Invariance (Round 1)</h2>
+<p>Since the model fit indicated some issues with retaining the Strong Invariance model, we will now examine Partial Strong Invariance. Remember what we already saw in the local fit evaluation of the mean residuals. Next, we will use the Backwards MI approach, using modification indices to evaluate which equality constraint would improve fit most if removed from the model. When working with equality constraints, we cannot use the <code>modificationindices()</code> function. Instead, we need to use the <code>lavTestScore()</code> function. The output provides the same information, but in a less accessible format. In the code below, I am excluding the first four rows of output (by asking for <code>5:32</code>) to hide the effect-coding equality constraints, which take up a lot of space. You can omit the <code>[5:32,]</code> part.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestScore</span>(fit.strong)<span class="sc">$</span>uni[<span class="dv">5</span><span class="sc">:</span><span class="dv">32</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+univariate score tests:
+
+     lhs op   rhs     X2 df p.value
+5   .p1. == .p50. 17.694  1   0.000
+6   .p2. == .p51.  1.809  1   0.179
+7   .p3. == .p52.  0.150  1   0.698
+8   .p4. == .p53.  0.708  1   0.400
+9   .p5. == .p54. 16.959  1   0.000
+10  .p6. == .p55.  1.459  1   0.227
+11  .p7. == .p56.  4.825  1   0.028
+12  .p8. == .p57.  3.574  1   0.059
+13  .p9. == .p58.  0.147  1   0.701
+14 .p10. == .p59.  0.035  1   0.852
+15 .p11. == .p60. 13.575  1   0.000
+16 .p12. == .p61.  0.131  1   0.717
+17 .p13. == .p62. 10.311  1   0.001
+18 .p14. == .p63. 18.197  1   0.000
+19 .p15. == .p64. 18.309  1   0.000
+20 .p16. == .p65.  0.738  1   0.390
+21 .p17. == .p66.  0.116  1   0.734
+22 .p18. == .p67.  1.210  1   0.271
+23 .p19. == .p68. 19.397  1   0.000
+24 .p20. == .p69.  0.813  1   0.367
+25 .p21. == .p70.  4.146  1   0.042
+26 .p22. == .p71.  2.654  1   0.103
+27 .p23. == .p72.  0.109  1   0.741
+28 .p24. == .p73.  0.007  1   0.932
+29 .p25. == .p74. 15.167  1   0.000
+30 .p26. == .p75.  0.126  1   0.723
+31 .p27. == .p76.  8.698  1   0.003
+32 .p28. == .p77. 22.118  1   0.000</code></pre>
+</div>
+</div>
+<p>Releasing the equality constraint of .p28 and .p77 is associated with the largest expected change in the model Chi-square test. But what are these parameters? We can add some arguments to the <code>lavTestScore()</code> function to get a table with the expected parameter changes for released constraints, which has more information about the specific parameters. I will filter out only the intercepts so the output is not too long:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestScore</span>(fit.strong, <span class="at">epc =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>epc <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(label, <span class="st">"nu."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lavTestScore():  
+   se is not `standard'; not implemented yet; falling back to ordinary score 
+   test</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+expected parameter changes (epc) and expected parameter values (epv):
+
+   lhs op rhs block group free label plabel    est    epc    epv
+1   q2 ~1         1     1   15  nu.1  .p15.  0.474 -0.136  0.339
+2   q4 ~1         1     1   16  nu.2  .p16. -0.180 -0.083 -0.263
+3   q7 ~1         1     1   17  nu.3  .p17. -0.082  0.005 -0.077
+4   q9 ~1         1     1   18  nu.4  .p18.  0.301 -0.074  0.226
+5  q15 ~1         1     1   19  nu.5  .p19. -0.457  0.147 -0.310
+6  q19 ~1         1     1   20  nu.6  .p20.  0.152  0.054  0.205
+7  q20 ~1         1     1   21  nu.7  .p21. -0.207  0.021 -0.186
+8   q1 ~1         1     1   22  nu.8  .p22. -0.171 -0.025 -0.196
+9   q6 ~1         1     1   23  nu.9  .p23. -0.027  0.018 -0.009
+10  q8 ~1         1     1   24 nu.10  .p24. -0.260  0.039 -0.221
+11 q11 ~1         1     1   25 nu.11  .p25. -0.031  0.162  0.131
+12 q12 ~1         1     1   26 nu.12  .p26. -0.187  0.018 -0.169
+13 q14 ~1         1     1   27 nu.13  .p27.  0.189  0.017  0.205
+14 q18 ~1         1     1   28 nu.14  .p28.  0.488 -0.292  0.196
+15  q2 ~1         2     2   64  nu.1  .p64.  0.474  0.024  0.498
+16  q4 ~1         2     2   65  nu.2  .p65. -0.180  0.116 -0.064
+17  q7 ~1         2     2   66  nu.3  .p66. -0.082  0.031 -0.050
+18  q9 ~1         2     2   67  nu.4  .p67.  0.301  0.055  0.356
+19 q15 ~1         2     2   68  nu.5  .p68. -0.457 -0.081 -0.538
+20 q19 ~1         2     2   69  nu.6  .p69.  0.152 -0.066  0.085
+21 q20 ~1         2     2   70  nu.7  .p70. -0.207 -0.048 -0.255
+22  q1 ~1         2     2   71  nu.8  .p71. -0.171  0.065 -0.107
+23  q6 ~1         2     2   72  nu.9  .p72. -0.027 -0.019 -0.046
+24  q8 ~1         2     2   73 nu.10  .p73. -0.260 -0.029 -0.289
+25 q11 ~1         2     2   74 nu.11  .p74. -0.031 -0.053 -0.084
+26 q12 ~1         2     2   75 nu.12  .p75. -0.187  0.000 -0.187
+27 q14 ~1         2     2   76 nu.13  .p76.  0.189 -0.085  0.104
+28 q18 ~1         2     2   77 nu.14  .p77.  0.488  0.139  0.627</code></pre>
+</div>
+</div>
+<p>From this table, we can see that .p28 and .p77 are the parameter labels for the intercept of <code>q18</code>, which also had a larger correlation residual. This question is worded as follows: ‘I felt that I was rather touchy’. The output above tells us something about what the intercept for this item would be if it were freely estimated across groups (in the <code>epv</code> [expected parameter value] column).</p>
+<p>From this information, we can see that the intercept for English Native speakers would decrease from .488 to .196. This indicates that, for English Native speakers with a true value of 0 on Stress, their expected response to this item is close to 0 (or the average intercept across all indicators of Stress).</p>
+<p>In contrast, for the ELL group, we can see that the intercept would increase from .488 to .627. This indicates that, for ELL speakers with a true value of 0 on Stress, their expected response to this item is further away from 0 (so higher that the average intercept of all indicators of Stress).</p>
+<p>In other words, when English Native Speakers and ELL Speakers experience the same underlying levels of stress, ELL Speakers respond with a higher response option to ‘I felt that I was rather touchy’.</p>
+<p>To test if releasing this constraint improves the fit of the Partial Strong Model sufficiently, we need to estimate the partial model. To do so, we can use the <code>group.partial</code> argument in the <code>measEq.syntax()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fit.partial1 <span class="ot">&lt;-</span> <span class="fu">measEq.syntax</span>(<span class="at">configural.model =</span> cfa_config, </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data =</span> DASS21, </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group =</span> <span class="st">"engnat"</span>, </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">ID.fac =</span> <span class="st">"effects"</span>, </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">return.fit =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">estimator =</span> <span class="st">"mlr"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>, <span class="st">"intercepts"</span>),</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group.partial =</span> <span class="st">"q18 ~ 1"</span>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the model syntax, so you can</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co"># see what semTools is helping us do:</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># cat(as.character(fit.partial1@call$model))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="model-comparison-2" class="level3">
+<h3 class="anchored" data-anchor-id="model-comparison-2">Model Comparison</h3>
+<p>Let’s compare the fit of this model to the Weak Invariance model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>comp_23b <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit.weak, fit.partial1)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(comp_23b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+              Df   AIC   BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)    
+fit.weak     160 35691 36074 382.85                                  
+fit.partial1 171 35728 36056 441.15     58.446      11    1.8e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+####################### Model Fit Indices ###########################
+             chisq.scaled df.scaled pvalue.scaled rmsea.robust cfi.robust
+fit.weak         330.756†       160          .000        .050†      .969†
+fit.partial1     384.540        171          .000        .054       .961 
+             tli.robust  srmr        aic        bic
+fit.weak          .964† .036† 35691.248† 36074.053 
+fit.partial1      .959  .041  35727.542  36056.361†
+
+################## Differences in Fit Indices #######################
+                        df.scaled rmsea.robust cfi.robust tli.robust  srmr
+fit.partial1 - fit.weak        11        0.004     -0.007     -0.006 0.004
+                           aic     bic
+fit.partial1 - fit.weak 36.294 -17.692</code></pre>
+</div>
+</div>
+<p><strong>What do the results indicate?</strong></p>
+</section>
+<section id="local-fit-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="local-fit-evaluation">Local Fit Evaluation</h3>
+<p>Since the fit worsened significantly when testing Strong Invariance, we will focus on problematic residuals in the mean vectors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit.partial1, <span class="at">type =</span> <span class="st">"cor.bollen"</span>)<span class="sc">$</span>EnglishNative<span class="sc">$</span>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    q2     q4     q7     q9    q15    q19    q20     q1     q6     q8    q11 
+-0.119  0.014  0.009 -0.023  0.067 -0.017 -0.041  0.021 -0.017 -0.013  0.069 
+   q12    q14    q18 
+-0.004 -0.083  0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit.partial1, <span class="at">type =</span> <span class="st">"cor.bollen"</span>)<span class="sc">$</span>ELL<span class="sc">$</span>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    q2     q4     q7     q9    q15    q19    q20     q1     q6     q8    q11 
+ 0.108 -0.018 -0.013  0.022 -0.069  0.017  0.035 -0.019  0.018  0.012 -0.067 
+   q12    q14    q18 
+ 0.005  0.072  0.000 </code></pre>
+</div>
+</div>
+<p><strong>What do you think the next indicator is that we need to focus on?</strong></p>
+</section>
+</section>
+<section id="partial-strong-invariance-round-2" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="partial-strong-invariance-round-2"><span class="header-section-number">7.8</span> Partial Strong Invariance (Round 2)</h2>
+<p>Since the model fit indicated some remaining issues with retaining the Partial Strong Invariance model, we will do another round of partial invariance testing:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestScore</span>(fit.partial1)<span class="sc">$</span>uni[<span class="dv">5</span><span class="sc">:</span><span class="dv">31</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lavTestScore():  
+   se is not `standard'; not implemented yet; falling back to ordinary score 
+   test</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+univariate score tests:
+
+     lhs op   rhs     X2 df p.value
+5   .p1. == .p50. 17.693  1   0.000
+6   .p2. == .p51.  1.813  1   0.178
+7   .p3. == .p52.  0.151  1   0.697
+8   .p4. == .p53.  0.706  1   0.401
+9   .p5. == .p54. 16.953  1   0.000
+10  .p6. == .p55.  1.459  1   0.227
+11  .p7. == .p56.  4.822  1   0.028
+12  .p8. == .p57.  1.808  1   0.179
+13  .p9. == .p58.  0.825  1   0.364
+14 .p10. == .p59.  0.567  1   0.451
+15 .p11. == .p60. 10.119  1   0.001
+16 .p12. == .p61.  0.049  1   0.825
+17 .p13. == .p62. 12.957  1   0.000
+18 .p14. == .p63.  0.903  1   0.342
+19 .p15. == .p64. 18.311  1   0.000
+20 .p16. == .p65.  0.739  1   0.390
+21 .p17. == .p66.  0.116  1   0.733
+22 .p18. == .p67.  1.208  1   0.272
+23 .p19. == .p68. 19.398  1   0.000
+24 .p20. == .p69.  0.812  1   0.367
+25 .p21. == .p70.  4.142  1   0.042
+26 .p22. == .p71.  1.116  1   0.291
+27 .p23. == .p72.  0.761  1   0.383
+28 .p24. == .p73.  0.448  1   0.503
+29 .p25. == .p74. 11.478  1   0.001
+30 .p26. == .p75.  0.063  1   0.802
+31 .p27. == .p76. 11.226  1   0.001</code></pre>
+</div>
+</div>
+<p>Releasing the equality constraint of .p19 and .p68 is associated with the largest expected change in the model Chi-square test (19.398), followed closely by the constraint of .p15 and .p64 (18.311). Let’s look at the alternative <code>lavTestScore()</code> output to find out what intercepts these are.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestScore</span>(fit.partial1, <span class="at">epc =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>epc <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(label, <span class="st">"nu."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lavTestScore():  
+   se is not `standard'; not implemented yet; falling back to ordinary score 
+   test</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+expected parameter changes (epc) and expected parameter values (epv):
+
+   lhs op rhs block group free    label plabel    est    epc    epv
+1   q2 ~1         1     1   15     nu.1  .p15.  0.474 -0.136  0.338
+2   q4 ~1         1     1   16     nu.2  .p16. -0.181 -0.083 -0.263
+3   q7 ~1         1     1   17     nu.3  .p17. -0.082  0.005 -0.077
+4   q9 ~1         1     1   18     nu.4  .p18.  0.300 -0.074  0.226
+5  q15 ~1         1     1   19     nu.5  .p19. -0.456  0.147 -0.309
+6  q19 ~1         1     1   20     nu.6  .p20.  0.151  0.054  0.205
+7  q20 ~1         1     1   21     nu.7  .p21. -0.207  0.022 -0.186
+8   q1 ~1         1     1   22     nu.8  .p22. -0.089 -0.048 -0.137
+9   q6 ~1         1     1   23     nu.9  .p23.  0.054 -0.008  0.046
+10  q8 ~1         1     1   24    nu.10  .p24. -0.171  0.010 -0.161
+11 q11 ~1         1     1   25    nu.11  .p25.  0.044  0.139  0.184
+12 q12 ~1         1     1   26    nu.12  .p26. -0.099 -0.010 -0.109
+13 q14 ~1         1     1   27    nu.13  .p27.  0.262 -0.012  0.249
+14 q18 ~1         1     1   28 nu.14.g1  .p28.  0.327 -0.088  0.239
+15  q2 ~1         2     2   64     nu.1  .p64.  0.474  0.024  0.498
+16  q4 ~1         2     2   65     nu.2  .p65. -0.181  0.116 -0.064
+17  q7 ~1         2     2   66     nu.3  .p66. -0.082  0.031 -0.050
+18  q9 ~1         2     2   67     nu.4  .p67.  0.300  0.055  0.356
+19 q15 ~1         2     2   68     nu.5  .p68. -0.456 -0.081 -0.537
+20 q19 ~1         2     2   69     nu.6  .p69.  0.151 -0.066  0.085
+21 q20 ~1         2     2   70     nu.7  .p70. -0.207 -0.048 -0.255
+22  q1 ~1         2     2   71     nu.8  .p71. -0.089  0.068 -0.021
+23  q6 ~1         2     2   72     nu.9  .p72.  0.054 -0.012  0.042
+24  q8 ~1         2     2   73    nu.10  .p73. -0.171 -0.022 -0.194
+25 q11 ~1         2     2   74    nu.11  .p74.  0.044 -0.044  0.000
+26 q12 ~1         2     2   75    nu.12  .p75. -0.099  0.007 -0.093
+27 q14 ~1         2     2   76    nu.13  .p76.  0.262 -0.078  0.183
+28 q18 ~1         2     2   77 nu.14.g2  .p77.  0.607  0.085  0.692</code></pre>
+</div>
+</div>
+<p>From this table, we can see that .p19 and .p68 are the parameter labels for the intercept of <code>q15</code>. This question did not necessarily have a large mean residual (that was <code>q2</code>, which is associated with the second largest drop in Chi Square based on the table above). However, if we look at the <code>epv</code> column, we can see that the intercepts are expected to be more different across groups for <code>q15</code> compared to <code>q2</code>.</p>
+<p>Item <code>q15</code> is worded as follows: ‘I felt I was close to panic’, and if released, the intercept would be lower for ELL speakers than for English Native speakers. This means that at a true level of 0 on Anxiety, ELL report less feelings of ‘panic’ compared to English Native speakers.</p>
+<p>Item <code>q2</code> is worded as follows: ‘I was aware of dryness in my mouth’, and if released, the intercept would be higher for ELL speakers than for English Native speakers. This means that at a true level of 0 on Anxiety, ELL report more experience of ‘dry mouth’ than English Native speakers.</p>
+<p>I don’t have much theoretical justification for freeing either of these intercepts. Maybe they are both kind of strange statements for ELL speakers? We are definitely going into a more exploratory mode of invariance testing here. Given the fact that the expected change in fit between these two options is very similar, but the larger mean residual was associated with <code>q2</code>, I’ve decided to release the intercept of <code>q2</code> next. Note that you might make a different decision.</p>
+<p>To test if releasing this constraint improves the fit of the Partial Strong Model sufficiently, we need to estimate a second partial model. To do so, we can use the <code>group.partial</code> argument in the <code>measEq.syntax()</code> function and add this second intercept:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>fit.partial2 <span class="ot">&lt;-</span> <span class="fu">measEq.syntax</span>(<span class="at">configural.model =</span> cfa_config, </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data =</span> DASS21, </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group =</span> <span class="st">"engnat"</span>, </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">ID.fac =</span> <span class="st">"effects"</span>, </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">return.fit =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">estimator =</span> <span class="st">"mlr"</span>,</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>, <span class="st">"intercepts"</span>),</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group.partial =</span> <span class="fu">c</span>(<span class="st">"q18~1"</span>, <span class="st">"q2~1"</span>))</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the model syntax, so you can</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="co"># see what semTools is helping us do:</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="co"># cat(as.character(fit.partial2@call$model))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s compare the fit of this model to the Weak Invariance model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>comp_23c <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit.weak, fit.partial2)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(comp_23c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+              Df   AIC   BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)    
+fit.weak     160 35691 36074 382.85                                  
+fit.partial2 170 35711 36045 422.62     39.744      10   1.88e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+####################### Model Fit Indices ###########################
+             chisq.scaled df.scaled pvalue.scaled rmsea.robust cfi.robust
+fit.weak         330.756†       160          .000        .050†      .969†
+fit.partial2     368.046        170          .000        .052       .964 
+             tli.robust  srmr        aic        bic
+fit.weak          .964† .036† 35691.248† 36074.053 
+fit.partial2      .961  .039  35711.011  36044.738†
+
+################## Differences in Fit Indices #######################
+                        df.scaled rmsea.robust cfi.robust tli.robust  srmr
+fit.partial2 - fit.weak        10        0.002     -0.005     -0.003 0.003
+                           aic     bic
+fit.partial2 - fit.weak 19.763 -29.314</code></pre>
+</div>
+</div>
+<p><strong>What do the results indicate?</strong></p>
+<section id="local-fit-evaluation-1" class="level3">
+<h3 class="anchored" data-anchor-id="local-fit-evaluation-1">Local Fit Evaluation</h3>
+<p>Again, we will focus on the residuals of the mean vectors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit.partial2, <span class="at">type =</span> <span class="st">"cor.bollen"</span>)<span class="sc">$</span>EnglishNative<span class="sc">$</span>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    q2     q4     q7     q9    q15    q19    q20     q1     q6     q8    q11 
+ 0.000  0.006  0.001 -0.032  0.056 -0.025 -0.052  0.021 -0.017 -0.013  0.069 
+   q12    q14    q18 
+-0.004 -0.083  0.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit.partial2, <span class="at">type =</span> <span class="st">"cor.bollen"</span>)<span class="sc">$</span>ELL<span class="sc">$</span>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    q2     q4     q7     q9    q15    q19    q20     q1     q6     q8    q11 
+ 0.000 -0.008 -0.003  0.032 -0.058  0.025  0.044 -0.019  0.018  0.012 -0.067 
+   q12    q14    q18 
+ 0.005  0.072  0.000 </code></pre>
+</div>
+</div>
+<p>This time, we don’t see any problems with the mean vector in terms of local fit.</p>
+</section>
+<section id="cfi-and-rmsea-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="cfi-and-rmsea-comparison">CFI and RMSEA Comparison</h3>
+<p>Next, we will examine if the CFI and RMSEA change to a lesser extent than our criteria (decrease in CFI ≤ 0.010, increase in RMSEA ≤ 0.015):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change in CFI</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"Change in CFI: "</span>, comp_23c<span class="sc">@</span>fit.diff<span class="sc">$</span>cfi.robust))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Change in CFI: -0.00471114055415356</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change in RMSEA</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"Change in RMSEA: "</span>, comp_23c<span class="sc">@</span>fit.diff<span class="sc">$</span>rmsea.robust))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Change in RMSEA: 0.00201878813551178</code></pre>
+</div>
+</div>
+<p>These are much smaller than our cutoff criteria (see statistical decision criteria above). They are also smaller than other suggested criteria (e.g., decrease in CFI ≤ 0.002 or increase in RMSEA ≤ 0.010). Based on this information, I will retain this partial strong invariant model with two freely estimated intercepts.</p>
+</section>
+</section>
+<section id="parameter-comparison-across-groups" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="parameter-comparison-across-groups"><span class="header-section-number">7.9</span> Parameter Comparison Across Groups</h2>
+<p>Now that we have finalized the invariance testing procedure (note that you could test higher levels of invariance, but that these offer few practical benefits), we can continue to compare latent factor variances, covariances, and means across groups.</p>
+<section id="factor-variances" class="level3">
+<h3 class="anchored" data-anchor-id="factor-variances">Factor Variances</h3>
+<p>First, we will test if the factor variances of the Anxiety and Stress factors are equivalent across groups. We will do so by adding <code>lv.variances</code> to the <code>group.equal</code> argument of the previous partial strong invariance model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>fit.partial2.lv <span class="ot">&lt;-</span> <span class="fu">measEq.syntax</span>(<span class="at">configural.model =</span> cfa_config, </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data =</span> DASS21, </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group =</span> <span class="st">"engnat"</span>, </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">ID.fac =</span> <span class="st">"effects"</span>, </span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">return.fit =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">estimator =</span> <span class="st">"mlr"</span>,</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>, <span class="st">"intercepts"</span>, </span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"lv.variances"</span>),</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group.partial =</span> <span class="fu">c</span>(<span class="st">"q18~1"</span>, <span class="st">"q2~1"</span>))</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the model syntax, so you can</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="co"># see what semTools is helping us do:</span></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="co"># cat(as.character(fit.partial2.lv@call$model))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now compare the fit of this model to the previous partial strong invariance model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>comp_3c4 <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit.partial2, fit.partial2.lv)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(comp_3c4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+                 Df   AIC   BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
+fit.partial2    170 35711 36045 422.62                              
+fit.partial2.lv 172 35709 36033 424.20     2.4853       2     0.2886
+
+####################### Model Fit Indices ###########################
+                chisq.scaled df.scaled pvalue.scaled rmsea.robust cfi.robust
+fit.partial2        368.046†       170          .000        .052       .964†
+fit.partial2.lv     371.348        172          .000        .051†      .964 
+                tli.robust  srmr        aic        bic
+fit.partial2         .961  .039† 35711.011  36044.738 
+fit.partial2.lv      .962† .047  35708.592† 36032.504†
+
+################## Differences in Fit Indices #######################
+                               df.scaled rmsea.robust cfi.robust tli.robust
+fit.partial2.lv - fit.partial2         2            0          0          0
+                                srmr    aic     bic
+fit.partial2.lv - fit.partial2 0.008 -2.419 -12.234</code></pre>
+</div>
+</div>
+<p><strong>What does the Chi-square Difference test tell us?</strong></p>
+</section>
+<section id="factor-covariances" class="level3">
+<h3 class="anchored" data-anchor-id="factor-covariances">Factor Covariances</h3>
+<p>Next, we will test if the factor covariance between Anxiety and Stress is equivalent across groups. We will do so by adding <code>lv.covariances</code> to the <code>group.equal</code> argument of the previous partial strong invariance model with equivalent factor variances:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>fit.partial2.lcv <span class="ot">&lt;-</span> <span class="fu">measEq.syntax</span>(<span class="at">configural.model =</span> cfa_config, </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data =</span> DASS21, </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group =</span> <span class="st">"engnat"</span>, </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">ID.fac =</span> <span class="st">"effects"</span>, </span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">return.fit =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">estimator =</span> <span class="st">"mlr"</span>,</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>, <span class="st">"intercepts"</span>, </span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"lv.variances"</span>,</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"lv.covariances"</span>),</span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>                              <span class="at">group.partial =</span> <span class="fu">c</span>(<span class="st">"q18~1"</span>, <span class="st">"q2~1"</span>))</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the model syntax, so you can</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="co"># see what semTools is helping us do:</span></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="co"># cat(as.character(fit.partial2.lcv@call$model))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now compare the fit of this model to the previous partial strong invariance model with equivalent factor variances:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>comp_45 <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit.partial2.lv, fit.partial2.lcv)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(comp_45)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan-&gt;unknown():  
+   lavaan NOTE: The "Chisq" column contains standard test statistics, not the 
+   robust test that should be reported per model. A robust difference test is 
+   a function of two standard (not robust) statistics.
+                  Df   AIC   BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
+fit.partial2.lv  172 35709 36033 424.20                              
+fit.partial2.lcv 173 35707 36026 424.58    0.27108       1     0.6026
+
+####################### Model Fit Indices ###########################
+                 chisq.scaled df.scaled pvalue.scaled rmsea.robust cfi.robust
+fit.partial2.lv      371.348        172          .000        .051       .964 
+fit.partial2.lcv     371.157†       173          .000        .051†      .964†
+                 tli.robust  srmr        aic        bic
+fit.partial2.lv       .962  .047  35708.592  36032.504 
+fit.partial2.lcv      .962† .046† 35706.978† 36025.982†
+
+################## Differences in Fit Indices #######################
+                                   df.scaled rmsea.robust cfi.robust tli.robust
+fit.partial2.lcv - fit.partial2.lv         1            0          0          0
+                                     srmr    aic    bic
+fit.partial2.lcv - fit.partial2.lv -0.001 -1.614 -6.522</code></pre>
+</div>
+</div>
+<p><strong>What does the Chi-square Difference test tell us?</strong></p>
+</section>
+<section id="factor-means" class="level3">
+<h3 class="anchored" data-anchor-id="factor-means">Factor Means</h3>
+<p>Finally, we can compare the Anxiety and Stress latent factor means to each other. We can use the effect size formula from the book chapter to do so (which can be interpreted as a Cohen’s d effect size). For each of the latent factors, we need the latent mean estimates and an estimate of the factor variance (in our case, the factor variance is equivalent, but the book describes options that can be used if the factor variances are not equivalent). We will find these estimates using the <code>group_by_groups</code> function from the <code>semhelpinghands</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_groups</span>(fit.partial2.lcv) <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>((op <span class="sc">==</span> <span class="st">"~1"</span> <span class="sc">&amp;</span> (lhs <span class="sc">==</span> <span class="st">"stress"</span> <span class="sc">|</span> lhs <span class="sc">==</span> <span class="st">"anxiety"</span>)) <span class="sc">|</span> </span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>           op <span class="sc">==</span> <span class="st">"~~"</span> <span class="sc">&amp;</span> (lhs <span class="sc">==</span> <span class="st">"stress"</span> <span class="sc">|</span> lhs <span class="sc">==</span> <span class="st">"anxiety"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      lhs op     rhs est_EnglishNative est_ELL
+1 anxiety ~~ anxiety             0.527   0.527
+2 anxiety ~~  stress             0.481   0.481
+3  stress ~~  stress             0.535   0.535
+4 anxiety ~1                     2.269   2.088
+5  stress ~1                     2.506   2.261</code></pre>
+</div>
+</div>
+<p>Here are the computations of the effect size for the mean difference in Anxiety:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean in English Native Speaker: 2.269</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mean in ELL Speaker: 2.088</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="co"># variance: 0.527</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>(<span class="fl">2.269</span> <span class="sc">-</span> <span class="fl">2.088</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.527</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2493293</code></pre>
+</div>
+</div>
+<p>This indicates that the mean of the Anxiety factor of the English Native Speaker sample is about 0.25 standard deviations higher than that of the ELL Speaker sample.</p>
+<p>Here are the computations of the effect size for the mean difference in Stress:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean in English Native Speaker: 2.506</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mean in ELL Speaker: 2.261</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="co"># variance: 0.535</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>(<span class="fl">2.506</span> <span class="sc">-</span> <span class="fl">2.261</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fl">0.535</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3349571</code></pre>
+</div>
+</div>
+<p>This indicates that the mean of the Stress factor of the English Native Speaker sample is about 0.33 standard deviations higher than that of the ELL Speaker sample.</p>
+<p>We can also test whether the mean differences are significant using a Wald test. This test is based on the difference in model chi-square that occurs when two parameters (in this case the latent factor means) are constrained to be equivalent.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: Average anxiety is equivalent across </span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="co"># English Native and ELL speakers</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestWald</span>(fit.partial2.lcv, <span class="at">constraints =</span> <span class="st">"alpha.1.g1 == alpha.1.g2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$stat
+[1] 12.99259
+
+$df
+[1] 1
+
+$p.value
+[1] 0.0003127267
+
+$se
+[1] "robust.huber.white"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># H0: Average stress is equivalent across </span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="co"># English Native and ELL speakers</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestWald</span>(fit.partial2.lcv, <span class="at">constraints =</span> <span class="st">"alpha.2.g1 == alpha.2.g2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$stat
+[1] 23.89415
+
+$df
+[1] 1
+
+$p.value
+[1] 1.017804e-06
+
+$se
+[1] "robust.huber.white"</code></pre>
+</div>
+</div>
+<p>Based on the results above, both tests were significant (p &lt; .05), so the mean differences are significant between groups.</p>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7.10</span> Conclusion</h2>
+<p>In this example, we found evidence of configural and weak invariance of the Anxiety and Stress factors from the DASS-21 over English native and ELL speaker samples. There is somewhat less convincing evidence of strong invariance, in that most, but not all, intercepts may be equivalent across groups. This means that the English native and ELL speaker samples did not have the same relative standing on one anxiety and one stress item, given the same position on the underlying conceptual variable (i.e., Anxiety/Stress).</p>
+<p>In a paper, you would report all of the above, adding all unstandardized estimates + SEs of the final retained model (in a table).</p>
+</section>
+<section id="summary" class="level2" data-number="7.11">
+<h2 data-number="7.11" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.11</span> Summary</h2>
+<p>In this R lab, you were introduced to the steps involved in testing measurement invariance with continuous indicators. Below, you’ll find a Bonus section that demonstrates how group mean differences based on the observed item responses differ from what we found using the CFA approach. In the next R Lab, you will learn all about structural after measurement models, which separate the measurement from the structural model in the estimation steps.</p>
+</section>
+<section id="bonus-compare-findings-to-mean-difference-based-on-observed-mean-scores" class="level2" data-number="7.12">
+<h2 data-number="7.12" class="anchored" data-anchor-id="bonus-compare-findings-to-mean-difference-based-on-observed-mean-scores"><span class="header-section-number">7.12</span> Bonus: Compare Findings to Mean Difference Based on Observed Mean Scores</h2>
+<p>The code below shows you how you can compare the two groups using mean scores based on the observed items (what you might typically have done), using t-tests. In this case, both Cohen’s D estimates are smaller compared to the difference estimates based on the latent factors. Thus, if we had ignored the measurement model and measurement invariance question, we would have concluded that the differences between native English speakers and ELL speaker were smaller.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create mean score variables:</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>DASS21 <span class="ot">&lt;-</span> DASS21 <span class="sc">%&gt;%</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">anx_mean =</span> <span class="fu">mean</span>(<span class="fu">c</span>(q2, q4, q7, q9, q15, q19, q20)),</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">str_mean =</span> <span class="fu">mean</span>(<span class="fu">c</span>(q1, q6, q8, q11, q12, q14, q18)))</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test significance of mean difference (both significant)</span></span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(anx_mean <span class="sc">~</span> engnat, <span class="at">data =</span> DASS21)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  anx_mean by engnat
+t = 2.5351, df = 994.7, p-value = 0.01139
+alternative hypothesis: true difference in means between group EnglishNative and group ELL is not equal to 0
+95 percent confidence interval:
+ 0.02891907 0.22708093
+sample estimates:
+mean in group EnglishNative           mean in group ELL 
+                   2.307714                    2.179714 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(str_mean <span class="sc">~</span> engnat, <span class="at">data =</span> DASS21)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  str_mean by engnat
+t = 3.965, df = 994.77, p-value = 7.864e-05
+alternative hypothesis: true difference in means between group EnglishNative and group ELL is not equal to 0
+95 percent confidence interval:
+ 0.09971799 0.29513916
+sample estimates:
+mean in group EnglishNative           mean in group ELL 
+                   2.548857                    2.351429 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get cohen's D </span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (both under-estimated compared to latent mean comparison):</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">cohen.d</span>(DASS21<span class="sc">$</span>anx_mean, <span class="at">group =</span> DASS21<span class="sc">$</span>engnat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call: psych::cohen.d(x = DASS21$anx_mean, group = DASS21$engnat)
+Cohen d statistic of difference between two means
+     lower effect upper
+[1,] -0.28  -0.16 -0.04
+
+Multivariate (Mahalanobis) distance between groups
+[1] 0.16
+r equivalent of difference between two means
+ data 
+-0.08 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">cohen.d</span>(DASS21<span class="sc">$</span>str_mean, <span class="at">group =</span> DASS21<span class="sc">$</span>engnat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call: psych::cohen.d(x = DASS21$str_mean, group = DASS21$engnat)
+Cohen d statistic of difference between two means
+     lower effect upper
+[1,] -0.38  -0.25 -0.13
+
+Multivariate (Mahalanobis) distance between groups
+[1] 0.25
+r equivalent of difference between two means
+ data 
+-0.12 </code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./sem.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structural Equation Modeling</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./sam.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Structural after Measurement Models</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">Copyright 2025, Sonja D. Winter</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ESCP 9710 R Labs - 3&nbsp; Indirect Effects</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./modelevaluation.html" rel="next">
+<link href="./pathanalysis.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ESCP 9710 R Labs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/people.html" rel="" target="">
+ <span class="menu-text">People</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/talks.html" rel="" target="">
+ <span class="menu-text">Talks</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-r-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">R Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-r-labs">    
+        <li>
+    <a class="dropdown-item" href="https://winterstat.github.io/escp8082_rlabs" rel="" target="">
+ <span class="dropdown-text">ESCP 8082 Foundations of Measurement</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.twitter.com/winterstat" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.github.com/winterstat" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./indirecteffects.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Indirect Effects</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gettingstarted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pathanalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Path Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./indirecteffects.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Indirect Effects</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelevaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Model Evaluation and Comparison</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confirmatoryfactoranalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Confirmatory Factor Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structural Equation Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measurementinvariance_cont.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Continuous Indicators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sam.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Structural after Measurement Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./latentgrowthmodel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Latent Growth Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measurementinvariance_ord.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Ordinal Indicators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lpa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Latent Profile Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Latent Class Analysis</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#loading-r-packages" id="toc-loading-r-packages" class="nav-link active" data-scroll-target="#loading-r-packages"><span class="header-section-number">3.1</span> Loading R Packages</a></li>
+  <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data"><span class="header-section-number">3.2</span> Loading Data</a></li>
+  <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration"><span class="header-section-number">3.3</span> Data Exploration</a></li>
+  <li><a href="#model-specification" id="toc-model-specification" class="nav-link" data-scroll-target="#model-specification"><span class="header-section-number">3.4</span> Model Specification</a></li>
+  <li><a href="#model-estimation" id="toc-model-estimation" class="nav-link" data-scroll-target="#model-estimation"><span class="header-section-number">3.5</span> Model Estimation</a></li>
+  <li><a href="#parameter-interpretation" id="toc-parameter-interpretation" class="nav-link" data-scroll-target="#parameter-interpretation"><span class="header-section-number">3.6</span> Parameter Interpretation</a></li>
+  <li><a href="#example-write-up-of-above-results" id="toc-example-write-up-of-above-results" class="nav-link" data-scroll-target="#example-write-up-of-above-results"><span class="header-section-number">3.7</span> Example Write-Up of Above Results</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">3.8</span> Summary</a></li>
+  <li><a href="#bonus-1-standardized-indirect-effects-with-correct-95-confidence-interval" id="toc-bonus-1-standardized-indirect-effects-with-correct-95-confidence-interval" class="nav-link" data-scroll-target="#bonus-1-standardized-indirect-effects-with-correct-95-confidence-interval"><span class="header-section-number">3.9</span> Bonus 1: Standardized Indirect Effects (with correct 95% Confidence Interval)</a></li>
+  <li><a href="#bonus-2-moderated-mediation-example" id="toc-bonus-2-moderated-mediation-example" class="nav-link" data-scroll-target="#bonus-2-moderated-mediation-example"><span class="header-section-number">3.10</span> Bonus 2: Moderated Mediation Example</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Indirect Effects</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can download the R code used in this lab by right-clicking this link and selecting “Save Link As…” in the drop-down menu: <a href="https://winterstat.github.io/escp9710_rlabs/data/indirecteffects.R">indirecteffects.R</a></p>
+</div>
+</div>
+<section id="loading-r-packages" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="loading-r-packages"><span class="header-section-number">3.1</span> Loading R Packages</h2>
+<p>If you want to use the functionality of a package, you will need to “load” the package into your environment. To do that, we use the <code>library</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semTools)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="loading-data" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="loading-data"><span class="header-section-number">3.2</span> Loading Data</h2>
+<p>Load the data into your environment. We will use the same data we’ve used in the previous Lab:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>meece <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="at">file =</span> <span class="st">"data/meece.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-exploration" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="data-exploration"><span class="header-section-number">3.3</span> Data Exploration</h2>
+<p>Before analyzing the data, we can look at the distribution of the variables to see if they follow a normal distribution (one of the main assumptions of the ML estimator that <code>lavaan</code> uses by default).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(meece, <span class="at">progress =</span> <span class="cn">FALSE</span>, <span class="at">diag =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">"barDiag"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="indirecteffects_files/figure-html/distributions-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This plot shows several things: on the diagonal, the univariate distribution of the variables (here using a histogram), in the lower triangle, we see scatter plots of pairs of variables, which appear to indicate that the relationships between variables are approximately linear. In the upper triangle, we see the actual Pearson correlation coefficient with significance information.</p>
+<p><strong>Do the histograms look “normal” enough? What can we do if there are issues with normality?</strong></p>
+<p>Package <code>semTools</code> includes a set of functions to evaluate the skew and kurtosis of observed variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Univariate skew and kurtosis</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(meece, <span class="dv">2</span>, skew)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              IntMot     SciAtt   TaskMast     EgoSoc   ActiveEn
+skew (g1) -0.1212397 -0.1038950 -0.1987473 0.08361646 -0.2038482
+se         0.1530931  0.1530931  0.1530931 0.15309311  0.1530931
+z         -0.7919347 -0.6786394 -1.2982121 0.54618045 -1.3315306
+p          0.4283988  0.4973664  0.1942145 0.58494190  0.1830145</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(meece, <span class="dv">2</span>, kurtosis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    IntMot     SciAtt  TaskMast     EgoSoc   ActiveEn
+Excess Kur (g2) -0.2634421 0.04668221 0.1033383 -0.3550750 0.57178812
+se               0.3061862 0.30618622 0.3061862  0.3061862 0.30618622
+z               -0.8603982 0.15246347 0.3375015 -1.1596702 1.86745217
+p                0.3895696 0.87882140 0.7357388  0.2461831 0.06183847</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multivariate skew and kurtosis</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mardiaSkew</span>(meece)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       b1d        chi         df          p 
+ 0.7426468 31.6862628 35.0000000  0.6288746 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mardiaKurtosis</span>(meece)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       b2d          z          p 
+34.1571166 -0.8059507  0.4202713 </code></pre>
+</div>
+</div>
+</section>
+<section id="model-specification" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="model-specification"><span class="header-section-number">3.4</span> Model Specification</h2>
+<p>Next, we will specify the same model as we did in the previous lab, which aligned with the model tested by the authors. This time, we will add the code necessary to compute the indirect and total effects present in the model. To do so, we need to give each path in the model a label that we can use to define the indirect and total effects. We can do that by using the <code>*</code> symbol. For example, in the code below <code>b1*TaskMast</code> labels the path from Task Mastery to Active Engagement as <code>b1</code>. In indirect effects, it is customary to label paths from the predictor to the mediator with <code>a</code>, paths from the mediator to the outcome with <code>b</code>, and paths from the predictor to the outcome with <code>c</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">ActiveEn ~ b1*TaskMast + b2*EgoSoc + c1*IntMot</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="st">TaskMast ~ a1*SciAtt + a2*IntMot</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">EgoSoc ~ a3*SciAtt + a4*IntMot + b3*TaskMast</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">SciAtt ~~ IntMot</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="st"># indirect and total effect between IntMot &gt; AciveEn</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="st">im.tm.ind := a2*b1</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="st">im.tm.es.ind := a2*b3*b2</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="st">im.es.ind := a4*b2</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="st">im.total.ind := (a2*b1) + (a2*b3*b2) + (a4*b2) </span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="st">im.total := (a2*b1) + (a2*b3*b2) + (a4*b2) + c1</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="st"># indirect effects between SciAtt &gt; AciveEn</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="st">sa.tm.ind := a1*b1</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="st">sa.tm.es.ind := a1*b3*b2</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="st">sa.es.ind := a3*b2</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="st">sa.total.ind := (a1*b1) + (a1*b3*b2) + (a3*b2)</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once we have labeled all the paths, we can use the labels to specify the indirect and total (indirect) effects. Since these are parameters that we estimate after the direct effects have already been estimated, we need to give each new parameter a name. It helps if these names make sense to you. For example, in the code above, the parameter <code>im.tm.ind</code> refers to the indirect effect (<code>ind</code>) from IntMot (<code>im</code>) via TaskMast (<code>tm</code>).</p>
+<p>To get the total indirect effect, you can simply add all the specific indirect effects together. If there is a direct effect from the main predictor to the main outcome, then we can also compute the total effect, by adding the direct effect (here <code>c1</code>) to the total indirect effects.</p>
+<p><strong>Why is there no total effect for the connection between SciAtt &gt; ActiveEn?</strong></p>
+<p>You can also see that some indirect effects are made up of more than two paths. This is the case with the paths that include the directed effect from Task Mastery to Ego Social goals (e.g., <code>im.tm.es.ind := a2*b3*b2</code>).</p>
+</section>
+<section id="model-estimation" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="model-estimation"><span class="header-section-number">3.5</span> Model Estimation</h2>
+<p>Estimating a path model in R is super simple! However, when we have indirect effects, we typically use bootstrapped standard errors (because multiplying two parameters by each other results in a distribution that is not Normally distributed and would result in making more Type I errors if we test significance). Typically, you would request at least 1000 bootstrap samples, but in the interest of saving time, we will use just 100 in this Lab. To make sure we’re all getting the same results, we will also specify a seed (<code>iseed</code>), which ensures that the bootstrap samples are reproducible.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">sem</span>(<span class="at">model =</span> mod1, <span class="at">data =</span> meece,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> <span class="st">"bootstrap"</span>, <span class="at">bootstrap =</span> <span class="dv">100</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">iseed =</span> <span class="dv">8789</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="parameter-interpretation" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="parameter-interpretation"><span class="header-section-number">3.6</span> Parameter Interpretation</h2>
+<p>We will skip over the evaluation step for today and focus on the interpretation of the results.</p>
+<p>To examine the parameter estimates when we rely on bootstrapping, we can use the <code>parameterEstimates()</code> function. Bootstrapped confidence intervals can be created in different ways, but the current best standard is to use bias-corrected percentiles (<code>bca.simple</code>). With the arguments below, we tell the function the hide the z statistic (<code>zstat = FALSE</code>) and p-value (<code>pvalue = FALSE</code>), because those are still based on the classic Normality assumption. In addition, we can ask that the output be shown as <code>text</code>, which will put the estimates in the classic <code>lavaan</code> summary format (easier to read):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(fit1, <span class="at">boot.ci.type =</span> <span class="st">"bca.simple"</span>, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ci =</span> <span class="cn">TRUE</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">zstat =</span> <span class="cn">FALSE</span>, <span class="at">pvalue =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">output =</span> <span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Regressions:
+                   Estimate  Std.Err ci.lower ci.upper
+  ActiveEn ~                                          
+    TaskMast  (b1)    0.459    0.036    0.370    0.523
+    EgoSoc    (b2)    0.070    0.023    0.013    0.113
+    IntMot    (c1)    0.072    0.032    0.022    0.157
+  TaskMast ~                                          
+    SciAtt    (a1)    0.255    0.054    0.157    0.384
+    IntMot    (a2)    0.248    0.063    0.157    0.414
+  EgoSoc ~                                            
+    SciAtt    (a3)   -0.179    0.091   -0.374    0.015
+    IntMot    (a4)   -0.371    0.100   -0.569   -0.217
+    TaskMast  (b3)    0.504    0.106    0.295    0.724
+
+Covariances:
+                   Estimate  Std.Err ci.lower ci.upper
+  IntMot ~~                                           
+    SciAtt            0.184    0.025    0.135    0.240
+
+Variances:
+                   Estimate  Std.Err ci.lower ci.upper
+   .ActiveEn          0.059    0.005    0.051    0.068
+   .TaskMast          0.164    0.015    0.140    0.192
+   .EgoSoc            0.495    0.043    0.408    0.581
+    IntMot            0.290    0.024    0.250    0.343
+    SciAtt            0.371    0.033    0.311    0.434
+
+Defined Parameters:
+                   Estimate  Std.Err ci.lower ci.upper
+    im.tm.ind         0.114    0.032    0.070    0.190
+    im.tm.es.ind      0.009    0.005    0.002    0.020
+    im.es.ind        -0.026    0.012   -0.054   -0.006
+    im.total.ind      0.096    0.035    0.044    0.174
+    im.total          0.168    0.045    0.094    0.277
+    sa.tm.ind         0.117    0.025    0.074    0.169
+    sa.tm.es.ind      0.009    0.004    0.003    0.022
+    sa.es.ind        -0.013    0.008   -0.028    0.003
+    sa.total.ind      0.114    0.029    0.067    0.171</code></pre>
+</div>
+</div>
+<p>The output above gives us the unstandardized estimates, with a lot of other information. When using bootstrapping, we will focus on the estimates (<code>est</code>), and the lower (<code>ci.lower</code>) and upper (<code>ci.upper</code>) bounds of the 95% confidence interval. If this interval does does not include 0 (i.e., both bounds are positive or negative), we can conclude that the effect is significant (<span class="math inline">\(\alpha = .05\)</span>).</p>
+<p><strong>What do the estimates and confidence intervals tell us about the indirect effects?</strong></p>
+</section>
+<section id="example-write-up-of-above-results" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="example-write-up-of-above-results"><span class="header-section-number">3.7</span> Example Write-Up of Above Results</h2>
+<p>Intrinsic Motivation was significantly related to Active Engagement both directly (B = .072, 95% CI [.022, .157]) and through three indirect paths, indicating partial mediation [assuming I have defensible causal assumptions]. Two indirect effects were positive and consistent with the direct effect, whereas the oe indirect effect (via Ego-Social Goals) was slightly negative and inconsistent. Thus, some of the positive effect via Task Mastery Goals on Ego-Social Goals (and indirectly Active Engagement) are diminished by the negative effect of Science Attitudes on Ego-Social Goals. Overall, Active Engagement is expected to increase by .217 (95% CI [.119, .372]) given a one-unit increase in Intrinsic Motivation through all direct and indirect pathways.</p>
+<p>Science Attitudes were significantly related to Active Engagement through two of three indirect paths. The two significant indirect effects were positive, whereas the non-significant indirect effect (via Ego-Social Goals) was slightly negative (B = -.013, 95% CI [-.028, .003]). Looking at the direct effects that make up the non-significant indirect effect, Science Attitudes was not significantly related to Ego-Social Goals (B = -.179, 95% CI [-.374, .015]). Overall, Active Engagement is expected to increase by .164 (95% CI [.094, .257]) given a one-unit increase in Science Attitudes through all indirect pathways (no direct path was included).</p>
+</section>
+<section id="summary" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">3.8</span> Summary</h2>
+<p>In this R lab, you were introduced to the steps involved in specifying, estimating, and interpreting indirect effects. Below, you’ll find two Bonus sections that demonstrate how to extract standardized estimates with 95% CIs and how to include a moderator into the mediation model (moderated mediation). In the next R Lab, you will learn all about model evaluation (i.e., does the model do a good job representing the associations between the variables?).</p>
+</section>
+<section id="bonus-1-standardized-indirect-effects-with-correct-95-confidence-interval" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="bonus-1-standardized-indirect-effects-with-correct-95-confidence-interval"><span class="header-section-number">3.9</span> Bonus 1: Standardized Indirect Effects (with correct 95% Confidence Interval)</h2>
+<p>Although <code>lavaan</code> can give us the standardized estimates of the indirect effects, the confidence intervals that it provides are not based on the bootstrapped samples. To get the correct 95% confidence intervals, we can use the package <code>semhelpinghands</code>, which includes several functions that help us use <code>lavaan</code> to its fullest extend.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semhelpinghands)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To use the package, we use the function <code>standardizedSolution_boot_ci()</code> to compute the correct 95% confidence interval. We can use the <code>print()</code> function to get a prettier version of the output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ci_boot <span class="ot">&lt;-</span> <span class="fu">standardizedSolution_boot_ci</span>(fit1)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ci_boot,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">output =</span> <span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Standardized Estimates Only
+
+  Standard errors                            Bootstrap
+  Confidence interval                        Bootstrap
+  Confidence Level                               95.0%
+  Standardization Type                         std.all
+  Number of requested bootstrap draws              100
+  Number of successful bootstrap draws             100
+
+Regressions:
+               Standardized  Std.Err ci.lower ci.upper
+  ActiveEn ~                                          
+    TaskMast  (b1)    0.630    0.041    0.526    0.704
+    EgoSoc    (b2)    0.150    0.050    0.045    0.252
+    IntMot    (c1)    0.110    0.047    0.023    0.210
+  TaskMast ~                                          
+    SciAtt    (a1)    0.324    0.067    0.185    0.454
+    IntMot    (a2)    0.279    0.064    0.168    0.411
+  EgoSoc ~                                            
+    SciAtt    (a3)   -0.145    0.071   -0.304   -0.020
+    IntMot    (a4)   -0.267    0.071   -0.386   -0.090
+    TaskMast  (b3)    0.323    0.066    0.179    0.452
+
+Covariances:
+               Standardized  Std.Err ci.lower ci.upper
+  IntMot ~~                                           
+    SciAtt            0.560    0.045    0.451    0.631
+
+Variances:
+               Standardized  Std.Err ci.lower ci.upper
+   .ActiveEn          0.487    0.043    0.409    0.579
+   .TaskMast          0.716    0.053    0.582    0.809
+   .EgoSoc            0.884    0.035    0.801    0.941
+    IntMot            1.000       NA       NA       NA
+    SciAtt            1.000       NA       NA       NA
+
+Defined Parameters:
+               Standardized  Std.Err ci.lower ci.upper
+    im.tm.ind         0.175    0.043    0.108    0.269
+    im.tm.es.ind      0.013    0.007    0.003    0.029
+    im.es.ind        -0.040    0.018   -0.076   -0.007
+    im.total.ind      0.149    0.049    0.070    0.250
+    im.total          0.259    0.060    0.135    0.398
+    sa.tm.ind         0.204    0.045    0.119    0.290
+    sa.tm.es.ind      0.016    0.007    0.004    0.032
+    sa.es.ind        -0.022    0.014   -0.052   -0.001
+    sa.total.ind      0.198    0.052    0.097    0.299</code></pre>
+</div>
+</div>
+</section>
+<section id="bonus-2-moderated-mediation-example" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="bonus-2-moderated-mediation-example"><span class="header-section-number">3.10</span> Bonus 2: Moderated Mediation Example</h2>
+<p>Sometimes, we hypothesize that one or more paths that make up an indirect effect are themselves moderated (so-called moderated mediation). In the example below, we take the arbitrary moderation model from the previous Lab and extend it with a new outcome variable so that there is an indirect effect. In this model, Active Engagement acts as a mediator between Ego-Social Goal Orientations and Science Attitudes (Note: this model is not based on any theory, it was solely set up to illustrate this method). Intrinsic Motivation is included as a moderator on the path from Ego-Social Goals to Active Engagement. Thus, in this model, we hypothesize that Intrinsic Motivation affects the indirect effect by moderating this first part of the indirect effect. You can also specify a model where moderation occurs in the second part of the indirect effect (or both, or the direct effect, or combinations of everything).</p>
+<p>We will again use the <code>modsem</code> package to help us with the interaction effect. As an initial step, we only want to focus on whether or not the moderator significantly affects the indirect effect. We can test this by specifying a so-called index of moderated mediation parameter, which represents the indirect effect of the interaction term and the <code>b</code>-path. We still use bootstrapping for testing the significance of any paths:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modsem)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">SciAtt ~ b*ActiveEn + c*EgoSoc</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">ActiveEn ~ a1*EgoSoc + a2*IntMot + a3*EgoSoc:IntMot</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="st"># index of moderated mediation</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="st">ind.mod.im := a3*b</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">modsem</span>(<span class="at">model =</span> mod2, <span class="at">data =</span> meece, <span class="at">method =</span> <span class="st">"pind"</span>,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">"bootstrap"</span>, <span class="at">bootstrap =</span> <span class="dv">100</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">iseed =</span> <span class="dv">8789</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To look at the parameter estimates as we’ve done before, we need to extract the <code>lavaan</code> object from the <code>modsem</code> object (otherwise functions such as <code>parameterEstimates</code> won’t work):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fit2_lav <span class="ot">&lt;-</span> <span class="fu">extract_lavaan</span>(fit2)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(fit2_lav, <span class="at">boot.ci.type =</span> <span class="st">"bca.simple"</span>, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ci =</span> <span class="cn">TRUE</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">zstat =</span> <span class="cn">FALSE</span>, <span class="at">pvalue =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">output =</span> <span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Regressions:
+                   Estimate  Std.Err ci.lower ci.upper
+  SciAtt ~                                            
+    ActiveEn   (b)    0.619    0.100    0.380    0.797
+    EgoSoc     (c)   -0.175    0.051   -0.245   -0.037
+  ActiveEn ~                                          
+    EgoSoc    (a1)    0.393    0.126    0.176    0.660
+    IntMot    (a2)    0.506    0.121    0.245    0.774
+    EgScIntMt (a3)   -0.090    0.042   -0.175   -0.009
+
+Variances:
+                   Estimate  Std.Err ci.lower ci.upper
+   .SciAtt            0.319    0.027    0.269    0.403
+   .ActiveEn          0.093    0.008    0.080    0.111
+
+Defined Parameters:
+                   Estimate  Std.Err ci.lower ci.upper
+    ind.mod.im       -0.056    0.028   -0.127   -0.007</code></pre>
+</div>
+</div>
+<p>In the output above, we can see that: - Both main effects of Ego-Social Goals and Intrinsic Motivation are positive and significant (the 95% CI does not include 0); - The interaction effect is significant and negative (consistent with what we found in the previous Lab); - The path from the intermediate variable (Active Engagement) to Science Attitudes is significant and positive, whereas the direct effect of Ego-Social Goals on Science Attitudes is significant and negative.</p>
+<p>Thus, although the direct association is negative, the indirect association via Active Engagement looks to be positive. But what role does Intrinsic Motivation play in moderating that indirect path?</p>
+<p>The index of moderated mediation is negative and significant. This suggests that Intrinsic Motivation weakens the indirect effect of Ego-Social Goals on Science Attitudes through Active Engagement: the higher intrinsic motivation, the weaker the indirect effect. We can compute the indirect effect at several levels of the moderator to understand the moderated mediation effect better. To do so, we first compute simple slopes (i.e., the effect of the main predictor on the mediator at different levels of the moderator) and then combine those with the <code>b</code>-path to get several <em>conditional</em> indirect effects. It is typical to look at the impact of the moderator at it’s mean value and 1 SD above and below that mean, so let’s compute those first:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(meece<span class="sc">$</span>IntMot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.85</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(meece<span class="sc">$</span>IntMot) <span class="sc">-</span> <span class="fu">sd</span>(meece<span class="sc">$</span>IntMot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.31</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(meece<span class="sc">$</span>IntMot) <span class="sc">+</span> <span class="fu">sd</span>(meece<span class="sc">$</span>IntMot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.39</code></pre>
+</div>
+</div>
+<p>Next, we can plug these values into our model specification to compute simple slopes and conditional indirect effects as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">SciAtt ~ b*ActiveEn + c*EgoSoc</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">ActiveEn ~ a1*EgoSoc + a2*IntMot + a3*EgoSoc:IntMot</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st"># index of moderated mediation</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">ind.mod.im := a3*b</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="st"># simple slopes</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="st">im.low := a1 + a3*2.31</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="st">im.mean := a1 + a3*2.85</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="st">im.high := a1 + a3*3.39</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="st"># conditional indirect effect</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="st">a1.b.low := im.low * b</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="st">a1.b.mean := im.mean * b</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="st">a1.b.high := im.high * b</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">modsem</span>(<span class="at">model =</span> mod3, <span class="at">data =</span> meece, <span class="at">method =</span> <span class="st">"pind"</span>,</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">"bootstrap"</span>, <span class="at">bootstrap =</span> <span class="dv">100</span>,</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">iseed =</span> <span class="dv">8789</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the output below, we can see that the indirect effect gets smaller as the moderator value goes from low, to mean, to high:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fit3_lav <span class="ot">&lt;-</span> <span class="fu">extract_lavaan</span>(fit3)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(fit3_lav, <span class="at">boot.ci.type =</span> <span class="st">"bca.simple"</span>, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ci =</span> <span class="cn">TRUE</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">zstat =</span> <span class="cn">FALSE</span>, <span class="at">pvalue =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">output =</span> <span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Regressions:
+                   Estimate  Std.Err ci.lower ci.upper
+  SciAtt ~                                            
+    ActiveEn   (b)    0.619    0.100    0.380    0.797
+    EgoSoc     (c)   -0.175    0.051   -0.245   -0.037
+  ActiveEn ~                                          
+    EgoSoc    (a1)    0.393    0.126    0.176    0.660
+    IntMot    (a2)    0.506    0.121    0.245    0.774
+    EgScIntMt (a3)   -0.090    0.042   -0.175   -0.009
+
+Variances:
+                   Estimate  Std.Err ci.lower ci.upper
+   .SciAtt            0.319    0.027    0.269    0.403
+   .ActiveEn          0.093    0.008    0.080    0.111
+
+Defined Parameters:
+                   Estimate  Std.Err ci.lower ci.upper
+    ind.mod.im       -0.056    0.028   -0.127   -0.007
+    im.low            0.185    0.037    0.084    0.254
+    im.mean           0.136    0.027    0.077    0.183
+    im.high           0.087    0.033    0.025    0.163
+    a1.b.low          0.114    0.029    0.054    0.170
+    a1.b.mean         0.084    0.021    0.047    0.132
+    a1.b.high         0.054    0.022    0.019    0.115</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./pathanalysis.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Path Analysis</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./modelevaluation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Model Evaluation and Comparison</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">Copyright 2025, Sonja D. Winter</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

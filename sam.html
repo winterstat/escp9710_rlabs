@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ESCP 9710 R Labs - 8&nbsp; Structural after Measurement Models</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./latentgrowthmodel.html" rel="next">
+<link href="./measurementinvariance_cont.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ESCP 9710 R Labs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/people.html" rel="" target="">
+ <span class="menu-text">People</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://winterstat.github.io/talks.html" rel="" target="">
+ <span class="menu-text">Talks</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-r-labs" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">R Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-r-labs">    
+        <li>
+    <a class="dropdown-item" href="https://winterstat.github.io/escp8082_rlabs" rel="" target="">
+ <span class="dropdown-text">ESCP 8082 Foundations of Measurement</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.twitter.com/winterstat" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.github.com/winterstat" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sam.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Structural after Measurement Models</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gettingstarted.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Getting Started</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pathanalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Path Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./indirecteffects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Indirect Effects</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelevaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Model Evaluation and Comparison</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confirmatoryfactoranalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Confirmatory Factor Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structural Equation Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measurementinvariance_cont.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Continuous Indicators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sam.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Structural after Measurement Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./latentgrowthmodel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Latent Growth Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./measurementinvariance_ord.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Ordinal Indicators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lpa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Latent Profile Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Latent Class Analysis</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#loading-r-packages" id="toc-loading-r-packages" class="nav-link active" data-scroll-target="#loading-r-packages"><span class="header-section-number">8.1</span> Loading R packages</a></li>
+  <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data"><span class="header-section-number">8.2</span> Loading Data</a></li>
+  <li><a href="#showing-that-a-factor-loading-is-equivalent-to-a-regression-in-standard-sem" id="toc-showing-that-a-factor-loading-is-equivalent-to-a-regression-in-standard-sem" class="nav-link" data-scroll-target="#showing-that-a-factor-loading-is-equivalent-to-a-regression-in-standard-sem"><span class="header-section-number">8.3</span> Showing that a factor loading is equivalent to a regression in standard SEM</a></li>
+  <li><a href="#showing-that-changing-the-outcome-variable-changes-the-loadings" id="toc-showing-that-changing-the-outcome-variable-changes-the-loadings" class="nav-link" data-scroll-target="#showing-that-changing-the-outcome-variable-changes-the-loadings"><span class="header-section-number">8.4</span> Showing that changing the outcome variable changes the loadings</a></li>
+  <li><a href="#re-estimating-the-model-using-sam" id="toc-re-estimating-the-model-using-sam" class="nav-link" data-scroll-target="#re-estimating-the-model-using-sam"><span class="header-section-number">8.5</span> Re-estimating the model using SAM</a></li>
+  <li><a href="#sem-vs-sam-with-larger-models" id="toc-sem-vs-sam-with-larger-models" class="nav-link" data-scroll-target="#sem-vs-sam-with-larger-models"><span class="header-section-number">8.6</span> SEM vs SAM with larger models</a></li>
+  <li><a href="#does-this-matter-with-larger-samples" id="toc-does-this-matter-with-larger-samples" class="nav-link" data-scroll-target="#does-this-matter-with-larger-samples"><span class="header-section-number">8.7</span> Does this matter with larger samples?</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8.8</span> Summary</a></li>
+  <li><a href="#bonus-interaction-effects-with-sam" id="toc-bonus-interaction-effects-with-sam" class="nav-link" data-scroll-target="#bonus-interaction-effects-with-sam"><span class="header-section-number">8.9</span> Bonus: Interaction Effects with SAM</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Structural after Measurement Models</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can download the R code used in this lab by right-clicking this link and selecting “Save Link As…” in the drop-down menu: <a href="https://winterstat.github.io/escp9710_rlabs/data/sam.R">sam.R</a></p>
+</div>
+</div>
+<section id="loading-r-packages" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="loading-r-packages"><span class="header-section-number">8.1</span> Loading R packages</h2>
+<p>Load the required packages for this lab into your R environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semTools)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semhelpinghands)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="loading-data" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="loading-data"><span class="header-section-number">8.2</span> Loading Data</h2>
+<p>Load the data into your environment. For this lab we will use a dataset based on N = 441 children whose caregivers completed a survey about family environment and child behavior. You can download the data by right-clicking this link and selecting “Save Link As…” in the drop-down menu: <a href="https://winterstat.github.io/escp9710_rlabs/data/projectkids.csv">data/projectkids.csv</a>. Make sure to save it in the folder you are using for this class.</p>
+<p>The full dataset and more information about this project can be found here: <a href="https://www.ldbase.org/datasets/72ab9852-8ebc-4ba0-bb1f-5f1c347e2572" class="uri">https://www.ldbase.org/datasets/72ab9852-8ebc-4ba0-bb1f-5f1c347e2572</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kids <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/projectkids.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">9710</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>kids100 <span class="ot">&lt;-</span> kids <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We also used this data for our lab on the Structural Equation Model. We previously used variables measuring three constructs: reading problems, attention, and homework problems. In addition to these constructs, the data set also includes three items about math problems (example: Is your child worse at math than at reading and spelling?; rated on a five-point scale from Not at all to A great deal), and six items about a chaotic home environment (example: You can’t hear yourself think in our home; rated on a five-point scale from Definitely Untrue to Definitely True).</p>
+</section>
+<section id="showing-that-a-factor-loading-is-equivalent-to-a-regression-in-standard-sem" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="showing-that-a-factor-loading-is-equivalent-to-a-regression-in-standard-sem"><span class="header-section-number">8.3</span> Showing that a factor loading is equivalent to a regression in standard SEM</h2>
+<p>Let’s first check the idea that a factor loading from a factor to an indicator is mathematically equivalent to a regression path from a factor to that same indicator. We will use three items measuring Chaotic Home Environment (<code>chaos</code>) and the homework problems composite score (<code>hpc_mean</code>). We will fit three models: (0) a model that just includes the three chaos items as indicators of a chaos factor, (1) a model in which <code>hpc_mean</code> is added as a fourth indicator of the factor, (2) a model in which <code>hpc_mean</code> is regressed on the latent factor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">chaos =~ chaos2 + chaos3 + chaos6</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">chaos =~ chaos2 + chaos3 + chaos6 + hpc_mean'</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">chaos =~ chaos2 + chaos3 + chaos6</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">hpc_mean ~ chaos</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod0, kids100)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod1, kids100)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod2, kids100)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To test the equivalence of the last two models, we can compare their model fit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>comp12 <span class="ot">&lt;-</span> <span class="fu">compareFit</span>(fit1, fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;unknown():  
+   some models have the same degrees of freedom</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>comp12<span class="sc">@</span>nested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Chi-Squared Difference Test
+
+     Df    AIC    BIC  Chisq Chisq diff RMSEA Df diff Pr(&gt;Chisq)
+fit1  2 1078.4 1099.2 8.7898                                    
+fit2  2 1078.4 1099.2 8.7898 1.7764e-13     0       0           </code></pre>
+</div>
+</div>
+<p>We can also use the <code>net()</code> function to get confirmation that the two models are equivalent:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">net</span>(fit1, fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        If cell [R, C] is TRUE, the model in row R is nested within column C.
+
+        If the models also have the same degrees of freedom, they are equivalent.
+
+        NA indicates the model in column C did not converge when fit to the
+        implied means and covariance matrix from the model in row R.
+
+        The hidden diagonal is TRUE because any model is equivalent to itself.
+        The upper triangle is hidden because for models with the same degrees
+        of freedom, cell [C, R] == cell [R, C].  For all models with different
+        degrees of freedom, the upper diagonal is all FALSE because models with
+        fewer degrees of freedom (i.e., more parameters) cannot be nested
+        within models with more degrees of freedom (i.e., fewer parameters).
+        
+              fit1 fit2
+fit1 (df = 2)          
+fit2 (df = 2) TRUE     </code></pre>
+</div>
+</div>
+<p>We can also see that the estimates are equivalent between these two models even though the factor loading suggests a very different kind of association with the factor than the regression coefficient:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>(<span class="st">"cfa"</span> <span class="ot">=</span> fit1, <span class="st">"sem"</span> <span class="ot">=</span> fit2)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"=~"</span>, <span class="st">"~"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       lhs op      rhs est_cfa est_sem
+1    chaos =~   chaos2   1.000   1.000
+2    chaos =~   chaos3   0.859   0.859
+3    chaos =~   chaos6   0.439   0.439
+4    chaos =~ hpc_mean   0.174      NA
+5 hpc_mean  ~    chaos      NA   0.174</code></pre>
+</div>
+</div>
+</section>
+<section id="showing-that-changing-the-outcome-variable-changes-the-loadings" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="showing-that-changing-the-outcome-variable-changes-the-loadings"><span class="header-section-number">8.4</span> Showing that changing the outcome variable changes the loadings</h2>
+<p>The example above shows that treating a variable as a latent factor indicator or an outcome variable does not affect the other indicators’ factor loadings. But what happens if we replace the outcome variable with a different outcome variable? Below, we replace <code>hpc_mean</code> with the latent factor for Reading Problems and use that latent factor as a new outcome variable.</p>
+<p>The measurement model of Chaos in the home should not change just because we have a different outcome variable, right? Let’s see what happens.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">chaos =~ chaos2 + chaos3 + chaos6</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="st">readprob =~ cldq_1 + cldq_2 + cldq_4 + cldq_5 + cldq_6</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">readprob ~ chaos</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod3, kids100)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>( <span class="st">"outcome_hpc"</span> <span class="ot">=</span> fit2, <span class="st">"outcome_read"</span> <span class="ot">=</span> fit3)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"=~"</span>,<span class="st">"~"</span>), <span class="at">lhs =</span><span class="st">"chaos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    lhs op    rhs est_outcome_hpc est_outcome_read
+1 chaos =~ chaos2           1.000            1.000
+2 chaos =~ chaos3           0.859            0.934
+3 chaos =~ chaos6           0.439            0.460</code></pre>
+</div>
+</div>
+<p><strong>Question: what do you notice about the factor loadings across the two models?</strong></p>
+<p>We can also focus on the standardized estimates to see how the first indicator’s loading is affected:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>( <span class="st">"sem_hpc"</span> <span class="ot">=</span> fit2, <span class="st">"sem_read"</span> <span class="ot">=</span> fit3),</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">use_standardizedSolution=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"=~"</span>,<span class="st">"~"</span>), <span class="at">lhs =</span><span class="st">"chaos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    lhs op    rhs est.std_sem_hpc est.std_sem_read
+1 chaos =~ chaos2           0.808            0.776
+2 chaos =~ chaos3           0.764            0.799
+3 chaos =~ chaos6           0.458            0.461</code></pre>
+</div>
+</div>
+</section>
+<section id="re-estimating-the-model-using-sam" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="re-estimating-the-model-using-sam"><span class="header-section-number">8.5</span> Re-estimating the model using SAM</h2>
+<p>To use SAM instead of traditional SEM, we can use the <code>sam()</code> function which comes with the <code>lavaan</code> package. Below, we use the local SAM method (alternatives are <code>global</code> and <code>fsr</code> [factor scores]), which is the preferred (and default) method. You can also specify different estimators for the measurement and structural part of the model and set other options (check out <code>?sam</code> for more information).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fit3_sam <span class="ot">&lt;-</span> <span class="fu">sam</span>(mod3, kids100, <span class="at">sam.method =</span> <span class="st">"local"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>(<span class="st">"cfa"</span> <span class="ot">=</span> fit0, <span class="st">"sem_read"</span> <span class="ot">=</span> fit3,<span class="st">"sam_read"</span><span class="ot">=</span>fit3_sam),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">use_standardizedSolution=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"=~"</span>,<span class="st">"~"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       lhs op    rhs est.std_cfa est.std_sem_read est.std_sam_read
+1    chaos =~ chaos2       0.719            0.776            0.719
+2    chaos =~ chaos3       0.865            0.799            0.865
+3    chaos =~ chaos6       0.451            0.461            0.451
+4 readprob =~ cldq_1          NA            0.712            0.712
+5 readprob =~ cldq_2          NA            0.677            0.675
+6 readprob =~ cldq_4          NA            0.880            0.880
+7 readprob =~ cldq_5          NA            0.940            0.940
+8 readprob =~ cldq_6          NA            0.960            0.961
+9 readprob  ~  chaos          NA            0.148            0.097</code></pre>
+</div>
+</div>
+<p><strong>Question: What difference do you notice between the SEM and SAM estimates?</strong></p>
+</section>
+<section id="sem-vs-sam-with-larger-models" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="sem-vs-sam-with-larger-models"><span class="header-section-number">8.6</span> SEM vs SAM with larger models</h2>
+<p>To illustrate the difference between SEM and SAM with a larger model, we first estimate separate CFAs for each latent factor that we will include in the larger model. You would not normally need to do this, but we will do it here to show how SEM and SAM results compare.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cfa_read <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="st">readprob =~ cldq_1 + cldq_2 + cldq_4 + cldq_5 + cldq_6</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="st">cldq_5 ~~ cldq_6</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>cfa_attention <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="st">attention =~ swan_1 + swan_2 + swan_3 + swan_4 + swan_5 + swan_6 + </span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="st">             swan_7 + swan_8 + swan_9</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="st">swan_1 ~~ swan_2</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>cfa_chaos <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="st">chaos =~ chaos2 + chaos3 + chaos6</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>cfa_math <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="st">mathprob =~ cldq_18 + cldq_19 + cldq_20</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>fit_cfa_read <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfa_read, kids100)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>fit_cfa_math <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfa_math, kids100)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>fit_cfa_chaos <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfa_chaos, kids100)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>fit_cfa_attention <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfa_attention, kids100)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we will set up the full model, including the measurement model and structural model. The model below includes several indirect effects with the goal of explaining variance in reading and math problems.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>big_sem <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Measurement Model</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">readprob =~ cldq_1 + cldq_2 + cldq_4 + cldq_5 + cldq_6</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">attention =~ swan_1 + swan_2 + swan_3 + swan_4 + swan_5 + swan_6 + </span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="st">             swan_7 + swan_8 + swan_9</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">             </span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="st">chaos =~ chaos2 + chaos3 + chaos6</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="st">mathprob =~ cldq_18 + cldq_19 + cldq_20</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="st">             </span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">hwp =~ 1* hpc_mean</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">hpc_mean ~~ 0.01572*hpc_mean</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="st">swan_1 ~~ swan_2</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">cldq_5 ~~   cldq_6</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="st"># Structural Model</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="st">attention ~ a1*chaos</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="st">hwp ~ a2*chaos + b1*attention</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="st">readprob ~ b2*hwp</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="st">mathprob ~ b3*hwp</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="st">readprob ~~ mathprob</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="st"># Indirect Effects</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="st">cha.att.hwp.read := a1*b1*b2</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="st">cha.att.hwp.math := a1*b1*b3</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="st">cha.hwp.read := a2*b2</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="st">cha.hwp.math := a2*b3</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate SEM and SAM</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>fit4_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(big_sem, kids100)</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>fit4_sam <span class="ot">&lt;-</span> <span class="fu">sam</span>(big_sem, kids100)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First, we will compare factor loading estimates from each of the CFAs with those from the full traditional SEM. The code below separates results for each latent factor to limit the size of the output tables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>( <span class="st">"cfa_read"</span> <span class="ot">=</span> fit_cfa_read,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"sem"</span> <span class="ot">=</span> fit4_sem),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">use_standardizedSolution=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"=~"</span>), <span class="at">lhs =</span> <span class="st">"readprob"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        lhs op    rhs est.std_cfa_read est.std_sem
+17 readprob =~ cldq_1            0.744       0.750
+18 readprob =~ cldq_2            0.719       0.716
+19 readprob =~ cldq_4            0.927       0.918
+20 readprob =~ cldq_5            0.875       0.880
+21 readprob =~ cldq_6            0.901       0.910</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>(<span class="st">"cfa_math"</span> <span class="ot">=</span> fit_cfa_math,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"sem"</span> <span class="ot">=</span> fit4_sem),</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">use_standardizedSolution=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"=~"</span>), <span class="at">lhs =</span> <span class="st">"mathprob"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        lhs op     rhs est.std_cfa_math est.std_sem
+14 mathprob =~ cldq_18            0.744       0.736
+15 mathprob =~ cldq_19            0.809       0.840
+16 mathprob =~ cldq_20            0.937       0.914</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>(<span class="st">"cfa_attention"</span> <span class="ot">=</span> fit_cfa_attention,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"sem"</span> <span class="ot">=</span> fit4_sem),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">use_standardizedSolution=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"=~"</span>), <span class="at">lhs =</span> <span class="st">"attention"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        lhs op    rhs est.std_cfa_attention est.std_sem
+1 attention =~ swan_1                 0.806       0.809
+2 attention =~ swan_2                 0.832       0.831
+3 attention =~ swan_3                 0.742       0.743
+4 attention =~ swan_4                 0.929       0.931
+5 attention =~ swan_5                 0.874       0.869
+6 attention =~ swan_6                 0.811       0.807
+7 attention =~ swan_7                 0.815       0.817
+8 attention =~ swan_8                 0.814       0.817
+9 attention =~ swan_9                 0.865       0.865</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>(<span class="st">"cfa_chaos"</span> <span class="ot">=</span> fit_cfa_chaos,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"sem"</span> <span class="ot">=</span> fit4_sem),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">use_standardizedSolution=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"=~"</span>), <span class="at">lhs =</span> <span class="st">"chaos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     lhs op    rhs est.std_cfa_chaos est.std_sem
+10 chaos =~ chaos2             0.719       0.837
+11 chaos =~ chaos3             0.865       0.737
+12 chaos =~ chaos6             0.451       0.448</code></pre>
+</div>
+</div>
+<p>Next, we will compare the SEM and SAM regression estimates (of direct and indirect effects). In addition to parameter estimates, we will also look at p-values to see if any inferences about significance change</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>(<span class="st">"sem"</span> <span class="ot">=</span> fit4_sem, </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"sam"</span> <span class="ot">=</span> fit4_sam), </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"est"</span>, <span class="st">"pvalue"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"~"</span>, <span class="st">":="</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                lhs op       rhs est_sem est_sam pvalue_sem pvalue_sam
+22        attention  ~     chaos  -0.350  -0.279      0.012      0.071
+23              hwp  ~ attention  -0.371  -0.375      0.000      0.000
+24              hwp  ~     chaos   0.046   0.041      0.393      0.502
+25         mathprob  ~       hwp   0.996   0.986      0.000      0.000
+26         readprob  ~       hwp   0.861   0.845      0.000      0.000
+56 cha.att.hwp.math :=  a1*b1*b3   0.129   0.103      0.021      0.085
+57 cha.att.hwp.read :=  a1*b1*b2   0.112   0.089      0.020      0.083
+58     cha.hwp.math :=     a2*b3   0.046   0.040      0.397      0.504
+59     cha.hwp.read :=     a2*b2   0.040   0.034      0.396      0.504</code></pre>
+</div>
+</div>
+<p>Let’s also take a look at the full summary results for the SAM analysis to see what information is included:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit4_sam, <span class="at">remove.step1 =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>This is lavaan 0.6-19 -- using the SAM approach to SEM
+
+  SAM method                                     LOCAL
+  Mapping matrix M method                           ML
+  Number of measurement blocks                       5
+  Estimator measurement part                        ML
+  Estimator  structural part                        ML
+
+  Number of observations                           100
+
+Summary Information Measurement + Structural:
+
+  Block    Latent Nind  Chisq Df
+      1  readprob    5  8.913  4
+      2 attention    9 62.025 26
+      3     chaos    3  0.000  0
+      4  mathprob    3  0.000  0
+      5       hwp    1  0.000  0
+
+  Model-based reliability latent variables:
+
+  readprob attention chaos mathprob   hwp
+      0.93     0.959 0.811    0.912 0.965
+
+  Summary Information Structural part:
+
+  chisq df   cfi rmsea  srmr
+  4.742  4 0.996 0.043 0.027
+
+Parameter Estimates:
+
+  Standard errors                              Twostep
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                       Step Estimate  Std.Err  z-value  P(&gt;|z|)
+  readprob =~                                                  
+    cldq_1                1    1.000                           
+    cldq_2                1    0.798    0.110    7.265    0.000
+    cldq_4                1    1.491    0.157    9.490    0.000
+    cldq_5                1    1.407    0.157    8.947    0.000
+    cldq_6                1    1.454    0.157    9.252    0.000
+  attention =~                                                 
+    swan_1                1    1.000                           
+    swan_2                1    0.951    0.093   10.208    0.000
+    swan_3                1    0.816    0.097    8.381    0.000
+    swan_4                1    1.187    0.102   11.614    0.000
+    swan_5                1    1.228    0.116   10.559    0.000
+    swan_6                1    1.109    0.117    9.473    0.000
+    swan_7                1    1.027    0.108    9.540    0.000
+    swan_8                1    1.048    0.110    9.525    0.000
+    swan_9                1    1.021    0.098   10.402    0.000
+  chaos =~                                                     
+    chaos2                1    1.000                           
+    chaos3                1    1.092    0.273    4.003    0.000
+    chaos6                1    0.486    0.124    3.931    0.000
+  mathprob =~                                                  
+    cldq_18               1    1.000                           
+    cldq_19               1    0.920    0.113    8.116    0.000
+    cldq_20               1    1.062    0.128    8.323    0.000
+  hwp =~                                                       
+    hpc_mean              1    1.000                           
+
+Regressions:
+                       Step Estimate  Std.Err  z-value  P(&gt;|z|)
+  attention ~                                                  
+    chaos     (a1)        2   -0.279    0.155   -1.807    0.071
+  hwp ~                                                        
+    chaos     (a2)        2    0.041    0.061    0.672    0.502
+    attention (b1)        2   -0.375    0.050   -7.558    0.000
+  readprob ~                                                   
+    hwp       (b2)        2    0.845    0.121    6.966    0.000
+  mathprob ~                                                   
+    hwp       (b3)        2    0.986    0.158    6.224    0.000
+
+Covariances:
+                       Step Estimate  Std.Err  z-value  P(&gt;|z|)
+ .swan_1 ~~                                                    
+   .swan_2                1    0.050    0.080    0.632    0.527
+ .cldq_5 ~~                                                    
+   .cldq_6                1    0.202    0.070    2.892    0.004
+ .readprob ~~                                                  
+   .mathprob              2   -0.040    0.050   -0.788    0.431
+
+Variances:
+                       Step Estimate  Std.Err  z-value  P(&gt;|z|)
+   .hpc_mean              1    0.016                           
+   .cldq_1                1    0.508    0.080    6.382    0.000
+   .cldq_2                1    0.375    0.058    6.480    0.000
+   .cldq_4                1    0.230    0.069    3.312    0.001
+   .cldq_5                1    0.381    0.082    4.672    0.000
+   .cldq_6                1    0.311    0.075    4.151    0.000
+   .swan_1                1    0.821    0.127    6.453    0.000
+   .swan_2                1    0.613    0.097    6.334    0.000
+   .swan_3                1    0.830    0.124    6.700    0.000
+   .swan_4                1    0.340    0.066    5.132    0.000
+   .swan_5                1    0.713    0.117    6.083    0.000
+   .swan_6                1    0.974    0.150    6.485    0.000
+   .swan_7                1    0.811    0.125    6.467    0.000
+   .swan_8                1    0.851    0.132    6.471    0.000
+   .swan_9                1    0.535    0.087    6.162    0.000
+   .chaos2                1    0.792    0.225    3.526    0.000
+   .chaos3                1    0.341    0.237    1.435    0.151
+   .chaos6                1    0.782    0.120    6.529    0.000
+   .cldq_18               1    0.786    0.135    5.837    0.000
+   .cldq_19               1    0.434    0.089    4.880    0.000
+   .cldq_20               1    0.152    0.088    1.717    0.086
+   .readprob              2    0.320    0.078    4.086    0.000
+   .attention             2    1.460    0.304    4.810    0.000
+    chaos                 2    0.847    0.281    3.012    0.003
+   .mathprob              2    0.549    0.136    4.042    0.000
+   .hwp                   2    0.214    0.034    6.337    0.000
+
+Defined Parameters:
+                       Step Estimate  Std.Err  z-value  P(&gt;|z|)
+    cha.att.hwp.rd        2    0.089    0.051    1.736    0.083
+    cha.tt.hwp.mth        2    0.103    0.060    1.723    0.085
+    cha.hwp.read          2    0.034    0.051    0.669    0.504
+    cha.hwp.math          2    0.040    0.060    0.668    0.504</code></pre>
+</div>
+</div>
+<p><strong>Question: What does the output tell you about the fit of the model? How is that different from traditional SEM?</strong></p>
+</section>
+<section id="does-this-matter-with-larger-samples" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="does-this-matter-with-larger-samples"><span class="header-section-number">8.7</span> Does this matter with larger samples?</h2>
+<p>Research has shown that SAM can be particularly helpful with small to medium samples. The full <code>kids</code> sample consists of 441 observations, which can be considered a medium-sized sample for this relatively simple structural equation model. To see if differences between SEM and SAM are less pronounced with larger samples, we can re-estimate the model with the full sample:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>fit5_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(big_sem, kids)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>fit5_sam <span class="ot">&lt;-</span> <span class="fu">sam</span>(big_sem, kids)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by_models</span>(<span class="fu">list</span>(<span class="st">"sem"</span> <span class="ot">=</span> fit5_sem, </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"sam"</span> <span class="ot">=</span> fit5_sam), </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"est"</span>, <span class="st">"pvalue"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by</span>(<span class="at">op =</span> <span class="fu">c</span>(<span class="st">"~"</span>, <span class="st">":="</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                lhs op       rhs est_sem est_sam pvalue_sem pvalue_sam
+22        attention  ~     chaos  -0.288  -0.253      0.001      0.004
+23              hwp  ~ attention  -0.361  -0.362      0.000      0.000
+24              hwp  ~     chaos   0.030   0.029      0.333      0.344
+25         mathprob  ~       hwp   0.906   0.928      0.000      0.000
+26         readprob  ~       hwp   0.688   0.665      0.000      0.000
+56 cha.att.hwp.math :=  a1*b1*b3   0.094   0.085      0.002      0.006
+57 cha.att.hwp.read :=  a1*b1*b2   0.072   0.061      0.002      0.006
+58     cha.hwp.math :=     a2*b3   0.027   0.027      0.335      0.346
+59     cha.hwp.read :=     a2*b2   0.020   0.020      0.336      0.346</code></pre>
+</div>
+</div>
+<p><strong>Question: What differences do you notice? What does that tell you about the role of the sample size?</strong></p>
+</section>
+<section id="summary" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">8.8</span> Summary</h2>
+<p>In this R lab, you were introduced to the structural after measurement approach to SEM. Below, you’ll find a Bonus section that demonstrates how to use SAM to estimate latent variable interaction effects. In the next R Lab, you will learn about latent growth models, which allow you to study trajectories of development across multiple time points.</p>
+</section>
+<section id="bonus-interaction-effects-with-sam" class="level2" data-number="8.9">
+<h2 data-number="8.9" class="anchored" data-anchor-id="bonus-interaction-effects-with-sam"><span class="header-section-number">8.9</span> Bonus: Interaction Effects with SAM</h2>
+<p>By separating the measurement and structural model, it also becomes much easier to estimate interaction effects among latent variables. This is still a new feature of SAM, so the official version of the <code>lavaan</code> package does not let you compute standard errors/evaluate significance yet (you can download the development version of <code>lavaan</code> from Github and use it to compute bootstrapped SEs). The example below shows you how to specify the interaction effect (identical to the <code>mod.sem</code> package approach) and then estimate the model. You will notice that this approach is much faster than some of the other latent variable interaction effect approaches.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>big_sem_int <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Measurement Model</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">readprob =~ cldq_1 + cldq_2 + cldq_4 + cldq_5 + cldq_6</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="st">attention =~ swan_1 + swan_2 + swan_3 + swan_4 + swan_5 + swan_6 + </span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="st">             swan_7 + swan_8 + swan_9</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="st">mathprob =~ cldq_18 + cldq_19 + cldq_20</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="st"># Structural Model</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="st">mathprob ~ readprob + attention + readprob:attention</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>fit_int_sam <span class="ot">&lt;-</span> <span class="fu">sam</span>(big_sem_int, <span class="at">data =</span> kids, <span class="at">se=</span><span class="st">"none"</span>)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_int_sam)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>This is lavaan 0.6-19 -- using the SAM approach to SEM
+
+  SAM method                                     LOCAL
+  Mapping matrix M method                           ML
+  Number of measurement blocks                       3
+  Estimator measurement part                        ML
+  Estimator  structural part                        ML
+
+                                                  Used       Total
+  Number of observations                           373         441
+
+Summary Information Measurement + Structural:
+
+  Block    Latent Nind   Chisq Df
+      1  readprob    5  40.605  5
+      2 attention    9 152.925 27
+      3  mathprob    3   0.000  0
+
+  Model-based reliability latent variables:
+
+  readprob attention mathprob
+     0.936     0.965    0.908
+
+  Summary Information Structural part:
+
+  chisq df cfi rmsea srmr
+      0  0   1     0    0
+
+Parameter Estimates:
+
+
+Regressions:
+                   Estimate
+  mathprob ~               
+    readprob          0.404
+    attention        -0.230
+    readprob:ttntn    0.016
+
+Covariances:
+                   Estimate
+  readprob ~~              
+    attention        -0.450
+    readprob:ttntn    1.333
+  attention ~~             
+    readprob:ttntn    1.492
+
+Intercepts:
+                   Estimate
+    readprob          2.016
+    attention         4.552
+   .mathprob          2.101
+    readprob:ttntn    8.728
+
+Variances:
+                   Estimate
+    readprob          0.589
+    attention         1.646
+   .mathprob          0.689
+    readprob:ttntn    8.701</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./measurementinvariance_cont.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Measurement Invariance Testing with Continuous Indicators</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./latentgrowthmodel.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Latent Growth Modeling</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">Copyright 2025, Sonja D. Winter</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
